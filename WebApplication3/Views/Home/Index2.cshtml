@@ -1,0 +1,222 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Timeline and Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid black; /* Outline for the grid */
+        }
+
+        .grid-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+
+            .grid-item label {
+                flex: 1;
+            }
+
+            .grid-item input {
+                flex: 2;
+                max-width: 250px; /* Limit the width of the input fields */
+            }
+
+        .grid-container .grid-item {
+            border: none; /* Make other borders invisible */
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        .continue-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .continue-button:hover {
+                background-color: darkblue;
+            }
+
+        .form-group input {
+            padding: 3px;
+            width: 150px;
+        }
+
+        .combined-labels {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        #SummaryButton {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+            bottom: 20px;
+            margin-left: 700px;
+        }
+
+        #SummaryContainer {
+            display: none;
+        }
+    </style>
+    <script>
+        function navigateTo() {
+            window.location.href = '@Url.Action("Index3", "Home")';
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function addResource() {
+            const resourceType = document.getElementById('resourceType').value;
+            const resourceContainer = document.getElementById('resourceContainer');
+            const existingResource = document.querySelector(`label[for="${resourceType}"]`).parentElement;
+
+            const newResource = document.createElement('div');
+            newResource.className = 'grid-item';
+
+            const resourceLabel = document.createElement('label');
+            const formattedResourceType = resourceType.replace(/([A-Z])/g, ' $1').trim();
+            resourceLabel.textContent = capitalizeFirstLetter(formattedResourceType) + ':';
+            resourceLabel.setAttribute('for', resourceType + 'New');
+
+            const resourceInput = document.createElement('input');
+            resourceInput.type = 'text';
+            resourceInput.id = resourceType + 'New';
+            resourceInput.name = resourceType + 'New';
+            resourceInput.maxLength = 25;
+
+            newResource.appendChild(resourceLabel);
+            newResource.appendChild(resourceInput);
+
+            existingResource.insertAdjacentElement('afterend', newResource);
+        }
+    </script>
+</head>
+
+<body>
+    <header style="color:black; text-align:left; font-size:36px; font-weight:bold; margin-top:50px;margin-bottom:30px;">
+        Estimation Page
+    </header>
+    <form>
+        <fieldset>
+            <legend>Resources Required</legend>
+            <div id="resourceContainer" class="grid-container">
+                <div class="grid-item">
+                    <label for="deliveryManager">Delivery Manager:</label>
+                    <input type="text" id="deliveryManager" name="deliveryManager" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="seniorManager">Senior Manager:</label>
+                    <input type="text" id="seniorManager" name="seniorManager" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="manager">Manager:</label>
+                    <input type="text" id="manager" name="manager" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="projectLead">Project Lead:</label>
+                    <input type="text" id="projectLead" name="projectLead" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="devTeamLead">Dev Team Lead:</label>
+                    <input type="text" id="devTeamLead" name="devTeamLead" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="seniorDeveloper">Senior Developer:</label>
+                    <input type="text" id="seniorDeveloper" name="seniorDeveloper" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="developer">Developer:</label>
+                    <input type="text" id="developer" name="developer" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="qaTeamLead">Testing Lead :</label>
+                    <input type="text" id="qaTeamLead" name="qaTeamLead" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="seniorTester">Senior Tester:</label>
+                    <input type="text" id="seniorTester" name="seniorTester" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="tester">Tester:</label>
+                    <input type="text" id="tester" name="tester" maxlength="25">
+                </div>
+                <div class="grid-item">
+                    <label for="deploymentTeam">Deployment Team:</label>
+                    <input type="text" id="deploymentTeam" name="deploymentTeam" maxlength="25">
+                </div>
+            </div>
+            <div class="grid-item">
+                <label for="resourceType">Select Resource Type:</label>
+                <select id="resourceType">
+                    <option value="deliveryManager">Delivery Manager</option>
+                    <option value="seniorManager">Senior Manager</option>
+                    <option value="manager">Manager</option>
+                    <option value="projectLead">Project Lead</option>
+                    <option value="devTeamLead">Dev Team Lead</option>
+                    <option value="seniorDeveloper">Senior Developer</option>
+                    <option value="developer">Developer</option>
+                    <option value="qaTeamLead">Testing Lead </option>
+                    <option value="seniorTester">Senior Tester</option>
+                    <option value="tester">Tester</option>
+                    <option value="deploymentTeam">Deployment Team</option>
+                </select>
+                <button type="button" onclick="addResource()">Add New Resource</button>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Project Timeline</legend>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label for="projectStartDate">Project Start Date:</label>
+                    <input type="date" id="projectStartDate" name="projectStartDate">
+                </div>
+                <div class="grid-item">
+                    <label for="projectEndDate">Project End Date:</label>
+                    <input type="date" id="projectEndDate" name="projectEndDate">
+                </div>
+            </div>
+        </fieldset>
+
+        <button type="button" class="continue-button" onclick="navigateTo()">Submit </button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Estimation App</title>
+    <style>
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            .navbar a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                .navbar a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+            .navbar .logo {
+                float: left;
+                padding: 14px 16px;
+                color: #f2f2f2;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+        .bracket-text {
+            font-size: 0.9em;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        .continue-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .continue-button:hover {
+                background-color: darkblue;
+            }
+    </style>
+    <script type="text/javascript">
+        function calculateHours(projectType, complexity) {
+            const hoursMatrix = {
+                "Small": { "Low": 100, "Medium": 150, "High": 200 },
+                "Medium": { "Low": 300, "Medium": 400, "High": 500 },
+                "Large": { "Low": 600, "Medium": 700, "High": 800 }
+            };
+            return hoursMatrix[projectType][complexity];
+        }
+
+        function navigateTo() {
+            const projectType = document.querySelector('input[name="projectType"]:checked').value;
+            const complexity = document.querySelector('input[name="complexity"]:checked').value;
+            const hours = calculateHours(projectType, complexity);
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '@Url.Action("SubmitForm", "Home")';
+
+            const projectTypeInput = document.createElement('input');
+            projectTypeInput.type = 'hidden';
+            projectTypeInput.name = 'projectType';
+            projectTypeInput.value = projectType;
+            form.appendChild(projectTypeInput);
+
+            const complexityInput = document.createElement('input');
+            complexityInput.type = 'hidden';
+            complexityInput.name = 'complexity';
+            complexityInput.value = complexity;
+            form.appendChild(complexityInput);
+
+            const hoursInput = document.createElement('input');
+            hoursInput.type = 'hidden';
+            hoursInput.name = 'hours';
+            hoursInput.value = hours;
+            form.appendChild(hoursInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</head>
+
+<body>
+    <br />
+    <h1>Project Estimation</h1>
+    <form>
+        <fieldset>
+            <legend>Select the Project Type</legend>
+            <label>
+                <input type="radio" name="projectType" value="Small" checked>
+                Small <span class="bracket-text">(Hours Range – 100 to 200)</span>
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="projectType" value="Medium">
+                Medium <span class="bracket-text">(Hours Range – 200 to 500)</span>
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="projectType" value="Large">
+                Large <span class="bracket-text">(Hours Range – greater than 500)</span>
+            </label>
+            <br>
+            <br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Select the Project Complexity</legend>
+            <label>
+                <input type="radio" name="complexity" value="Low" checked>
+                Low
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="complexity" value="Medium">
+                Medium
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="complexity" value="High">
+                High
+            </label>
+        </fieldset>
+
+        <br>
+        <button type="button" class="continue-button" onclick="navigateTo()">Continue</button>
+    </form>
+</body>
+
+</html>

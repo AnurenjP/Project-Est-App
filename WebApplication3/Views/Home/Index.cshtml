@@ -1,0 +1,425 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Estimation Page</title>
+    <style>
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+            .form-group label {
+                font-size: 16px;
+                margin-right: 50px;
+                display: inline-block;
+                text-align: left;
+                width: 250px;
+                white-space: nowrap;
+                margin-left: 100px;
+            }
+
+        input[type="text"] {
+            display: inline-block;
+            float: left;
+            margin-top: 10px;
+        }
+
+        .form-group input[type="number"] {
+            padding: 3px;
+            width: 150px;
+            display: inline-block;
+        }
+
+        .combined-labels {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        #SummaryButton {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+            bottom: 20px;
+            margin-left: 700px;
+        }
+
+        #SummaryContainer {
+            display: none;
+        }
+
+        .form-box {
+            width: 80%;
+            margin: 50px auto;
+            padding: 15px;
+            border: 1px solid;
+            border-radius: 10px;
+            display: inline-block;
+            float: left;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-top: 10px;
+        }
+
+        /*       .section-title input[type="number"] {
+                    padding: 3px;
+                    width: 150px;
+                    margin-left:100px;
+
+                  }
+
+                .section-title form-group {
+                    display: flex;
+                    margin-bottom: 10px;
+                    margin-left: 500px;
+                } */
+
+        .inner-box {
+            padding: 20px;
+            border: 1px solid;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .total-label {
+            font-style: italic;
+            font-size: 15px;
+            margin-left: auto;
+        }
+
+        .continue-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .continue-button:hover {
+                background-color: darkblue;
+            }
+    </style>
+
+
+</head>
+<body>
+    <div class="form-box">
+        <h2>Estimation Page</h2>
+
+        <form>
+
+            <div class="section-title form-group col-8">
+                <label for="AnalysisandDesign">Analysis & Design</label>
+                <span id="AnalysisandDesign" class="total-label"></span>
+
+            </div>
+            <div class="inner-box">
+                <div class="form-group col-9">
+                    <label for="Analysisandrequirementsignoff">Analysis and requirement sign off</label>
+                    <input type="number" id="Analysisandrequirementsignoff" name="Analysisandrequirementsignoff" oninput="updateSum()">
+
+                </div>
+                <div class="form-group col-9">
+                    <label for="FunctionalDesign">Functional Design</label>
+                    <input type="number" id="FunctionalDesign" name="FunctionalDesign" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="TechnicalDesign">Technical Design</label>
+                    <input type="number" id="TechnicalDesign" name="TechnicalDesign" oninput="updateSum()">
+                </div>
+            </div>
+
+            <div class="section-title form-group col-8">
+                <label for="Coding">Coding</label>
+                <span id="AnalysisandDesign" class="total-label"></span>
+            </div>
+            <div class="inner-box">
+
+                <div class="form-group col-9">
+                    <label for="Frontendchanges">Frontend changes</label>
+                    <input type="number" id="Frontendchanges" name="Frontendchanges" oninput="updateSum()">
+
+                </div>
+                <div class="form-group col-9">
+                    <label for="IntegrationChanges">Integration Changes</label>
+                    <input type="number" id="IntegrationChanges" name="IntegrationChanges" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="BackendChanges">Backend Changes</label>
+                    <input type="number" id="BackendChanges" name="BackendChanges" oninput="updateSum()">
+                </div>
+            </div>
+
+            <div class="section-title form-group col-8">
+                <label for="UnitTesting">Unit Testing</label>
+                <span id="AnalysisandDesign" class="total-label"></span>
+            </div>
+            <div class="inner-box">
+                <div class="form-group col-9">
+                    <label for="UnitTestCasePreparation">Unit Test Case Preparation</label>
+                    <input type="number" id="UnitTestCasePreparation" name="UnitTestCasePreparation" oninput="updateSum()">
+
+                </div>
+                <div class="form-group col-9">
+                    <label for="UnittestlogsandDefectFix">Unit test logs and Defect Fix</label>
+                    <input type="number" id="UnittestlogsandDefectFix" name="UnittestlogsandDefectFix" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="CodeReview">Code Review</label>
+                    <input type="number" id="CodeReview" name="CodeReview" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="UnitTestCaseReview">Unit Test Case Review</label>
+                    <input type="number" id="UnitTestCaseReview" name="UnitTestCaseReview" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="UnittestResultReview">Unit test Result Review</label>
+                    <input type="number" id="UnittestResultReview" name="UnittestResultReview" oninput="updateSum()">
+                </div>
+            </div>
+            <div class="section-title form-group col-8">
+                <label for="QAandUATTesting">QA & UAT Testing</label>
+                <span id="AnalysisandDesign" class="total-label"></span>
+            </div>
+            <div class="inner-box">
+                <div class="form-group col-9">
+                    <label for="QATestCasePreparation">QA Test Case Preparation</label>
+                    <input type="number" id="QATestCasePreparation" name="QATestCasePreparation" oninput="updateSum()">
+
+                </div>
+                <div class="form-group col-9">
+                    <label for="QATestingandDefectFix">QA Testing and Defect Fix</label>
+                    <input type="number" id="QATestingandDefectFix" name="QATestingandDefectFix" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="IntegrationTesting">Integration Testing</label>
+                    <input type="number" id="IntegrationTesting" name="IntegrationTesting" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="UATTestingandDefectFix">UAT Testing and Defect Fix</label>
+                    <input type="number" id="UATTestingandDefectFix" name="UATTestingandDefectFix" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="QAandTestResultReview">QA and Test Result Review</label>
+                    <input type="number" id="QAandTestResultReview" name="QAandTestResultReview" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="QAandUATSupport">QA & UAT Support</label>
+                    <input type="number" id="QAandUATSupport" name="QAandUATSupport" oninput="updateSum()">
+                </div>
+            </div>
+            <div class="section-title form-group col-8">
+                <label for="ReleaseManagement">Release Management</label>
+                <span id="AnalysisandDesign" class="total-label"></span>
+            </div>
+            <div class="inner-box">
+                <div class="form-group col-9">
+                    <div class="combined-labels">
+                        <label for="combined-labels">Release artifact</label>
+                        <label for="combined-labels">Version Labelling</label>
+                        <label for="combined-labels">PVCS\Bitbucket Check In</label>
+                        <label for="combined-labels">SDLC Document</label>
+                    </div>
+                    <div>
+
+                        <input type="number" id="combined-labels" name="combined-labels" oninput="updateSum()">
+                    </div>
+                </div>
+            </div>
+            <div class="section-title form-group col-8">
+                <label for="Support">Support</label>
+                <span id="AnalysisandDesign" class="total-label"></span>
+            </div>
+            <div class="inner-box">
+                <div class="form-group col-9">
+                    <label for="DeploymentSupport">Deployment Support</label>
+                    <input type="number" id="DeploymentSupport" name="DeploymentSupport" oninput="updateSum()">
+                </div>
+                <div class="form-group col-9">
+                    <label for="WarrantySupport">Warranty Support</label>
+                    <input type="number" id="WarrantySupport" name="WarrantySupport" oninput="updateSum()">
+                </div>
+            </div>
+
+        </form>
+
+
+        <button id="SummaryButton" onclick="updatesummary()">Summary</button>
+
+        <form id="SummaryContainer">
+            <div class="section-title form-group col-8">
+                <label for="EstimationSummary">Estimation Summary</label>
+                <span id="AnalysisandDesign" class="total-label"></span>
+            </div>
+            <div class="inner-box">
+
+                <div class="form-group col-9">
+                    <label for="AnalysisandDesign1">Analysis & Design</label>
+                    <input type="number" id="AnalysisandDesign1" name="AnalysisandDesign1" readonly>
+
+                </div>
+                <div class="form-group col-9">
+                    <label for="Construction">Construction</label>
+                    <input type="number" id="Construction" name="Construction" readonly>
+                </div>
+                <div class="form-group col-9">
+                    <label for="QA">QA</label>
+                    <input type="number" id="QA" name="QA" readonly>
+                </div>
+                <div class="form-group col-9">
+                    <label for="UAT">UAT</label>
+                    <input type="number" id="UAT" name="UAT" readonly>
+                </div>
+                <div class="form-group col-9">
+                    <label for="Deploymentsupport">Deployment Support</label>
+                    <input type="number" id="Deploymentsupport" name="Deploymentsupport" readonly>
+                </div>
+                <div class="form-group col-9">
+                    <label for="Warantysupport">Waranty Support</label>
+                    <input type="number" id="Warantysupport" name="Warantysupport" readonly>
+                </div>
+                @* <div class="form-group col-9">
+                <label for="Total">Total</label>
+                <input type="number" id="Total" name="Total" readonly>
+                </div> *@
+            </div>
+            <button type="button" class="continue-button" onclick="navigateTo()">Continue</button>
+
+        </form>
+    </div>
+    <script>
+        function navigateTo() {
+            window.location.href = '@Url.Action("Index2", "Home")';
+        }
+        document.getElementById("SummaryButton").addEventListener("click", function () {
+            var Summary = document.getElementById("SummaryContainer");
+            if (Summary.style.display === "none" || Summary.style.display === "") {
+                Summary.style.display = "block";
+
+                // } else {
+                //     Summary.style.display = "none";
+                // }
+            }
+
+        });
+        function updateSum() {
+            const analysis = parseFloat(document.getElementById('Analysisandrequirementsignoff').value) || 0;
+            const functional = parseFloat(document.getElementById('FunctionalDesign').value) || 0;
+            const technical = parseFloat(document.getElementById('TechnicalDesign').value) || 0;
+
+            const sum = analysis + functional + technical;
+            document.getElementById('AnalysisandDesign').innerText = sum;
+
+
+
+            //sum for Coding
+            const frontend = parseFloat(document.getElementById('Frontendchanges').value) || 0;
+            const Integration = parseFloat(document.getElementById('IntegrationChanges').value) || 0;
+            const backend = parseFloat(document.getElementById('BackendChanges').value) || 0;
+
+            const sum1 = frontend + Integration + backend;
+            document.getElementById('Coding').innerText = sum1;
+
+
+            //sum for UnitTesting
+            const UnitTestCase = parseFloat(document.getElementById('UnitTestCasePreparation').value) || 0;
+            const testlogsandDefectFix = parseFloat(document.getElementById('UnittestlogsandDefectFix').value) || 0;
+            const Review = parseFloat(document.getElementById('CodeReview').value) || 0;
+            const TestCaseReview = parseFloat(document.getElementById('UnitTestCaseReview').value) || 0;
+            const testResultReview = parseFloat(document.getElementById('UnittestResultReview').value) || 0;
+
+
+            const sum2 = UnitTestCase + testlogsandDefectFix + Review + TestCaseReview + testResultReview;
+            document.getElementById('UnitTesting').innerText = sum2;
+
+
+            //sum for QA & UAT Testing
+            const QATestCase = parseFloat(document.getElementById('QATestCasePreparation').value) || 0;
+            const QATestingandDefectFix = parseFloat(document.getElementById('QATestingandDefectFix').value) || 0;
+            const IntegrationTest = parseFloat(document.getElementById('IntegrationTesting').value) || 0;
+            const UATTestandDefectFix = parseFloat(document.getElementById('UATTestingandDefectFix').value) || 0;
+            const QAtestResultReview = parseFloat(document.getElementById('QAandTestResultReview').value) || 0;
+            const QAUATSupport = parseFloat(document.getElementById('QAandUATSupport').value) || 0;
+
+            const sum3 = QATestCase + QATestingandDefectFix + IntegrationTest + UATTestandDefectFix + QAtestResultReview + QAUATSupport;
+            document.getElementById('QAandUATTesting').innerText = sum3;
+
+
+            //sum for Release Management
+            const combined = parseFloat(document.getElementById('combined-labels').value) || 0;
+
+            const sum4 = combined;
+            document.getElementById('ReleaseManagement').innerText = sum4;
+
+
+            //sum for Support
+            const Deployment = parseFloat(document.getElementById('DeploymentSupport').value) || 0;
+            const Warranty = parseFloat(document.getElementById('WarrantySupport').value) || 0;
+
+            const sum5 = Deployment + Warranty;
+            document.getElementById('Support').innerText = sum5;
+
+        }
+
+        //Sum for Estimation summary
+        function updatesummary() {
+            const AnalysisandDesign1field = document.getElementById('AnalysisandDesign').innerText;
+            document.getElementById('AnalysisandDesign1').value = AnalysisandDesign1field;
+
+            // sum for construction
+            const Construction1 = parseFloat(document.getElementById('Coding').innerText);
+            const Construction2 = parseFloat(document.getElementById('UnitTesting').innerText);
+            const Construction3 = parseFloat(document.getElementById('ReleaseManagement').innerText);
+
+            const construction = Construction1 + Construction2 + Construction3;
+            document.getElementById('Construction').value = construction;
+
+            //Deployment
+            const Deploymentfield = document.getElementById('DeploymentSupport').value;
+            document.getElementById('Deploymentsupport').value = Deploymentfield;
+
+            //Waranty
+            const Warrantyfield = document.getElementById('WarrantySupport').value;
+            document.getElementById('Warantysupport').value = Warrantyfield;
+
+            // QA & UAT
+            const Percentage = parseFloat(document.getElementById('QAandUATTesting').innerText);
+
+            const QApercentage = (Percentage * 60) / 100;
+            const UATpercentage = (Percentage * 40) / 100;
+
+            document.getElementById('QA').value = QApercentage;
+            document.getElementById('UAT').value = UATpercentage;
+
+            //Estimation Summary
+            const Analysis = parseFloat(document.getElementById('AnalysisandDesign1').value) || 0;
+            const Construct = parseFloat(document.getElementById('Construction').value) || 0;
+            const Deploy = parseFloat(document.getElementById('Deploymentsupport').value) || 0;
+            const Waranty = parseFloat(document.getElementById('Warantysupport').value) || 0;
+            const QA = parseFloat(document.getElementById('QA').value) || 0;
+            const UAT = parseFloat(document.getElementById('UAT').value) || 0;
+
+            const summary = Analysis + Construct + Deploy + Waranty + QA + UAT;
+            document.getElementById('EstimationSummary').innerText = summary;
+
+
+        }
+
+
+    </script>
+
+</body>
+</html>
+
