@@ -1,22 +1,272 @@
+/* General Styles */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    margin-bottom: 60px;
+    background-color: #f8f9fa;
 }
+
+.container {
+    margin-top: 50px;
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+}
+
+    .navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    .navbar .logo {
+        float: left;
+        padding: 14px 16px;
+        color: #f2f2f2;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+/* Button Styles */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.continue-button, .btn-sample-budget, .btn-view-budget, .btn-customize, .btn-optional-budget {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .continue-button:hover, .btn-sample-budget:hover, .btn-view-budget:hover, .btn-customize:hover, .btn-optional-budget:hover {
+        background-color: darkblue;
+    }
+
+.btn-sample-budget {
+    background-color: #007bff;
+}
+
+    .btn-sample-budget:hover {
+        background-color: #0056b3;
+    }
+
+.btn-view-budget {
+    background-color: #28a745;
+}
+
+    .btn-view-budget:hover {
+        background-color: #218838;
+    }
+
+/* Form Styles */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+    .form-group label {
+        font-size: 16px;
+        margin-right: 10px;
+        display: inline-block;
+        text-align: left;
+        width: 150px;
+    }
+
+    input[type="text"], .form-group input[type="number"] {
+        display: inline-block;
+        padding: 5px;
+        width: 250px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+.combined-labels {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+#SummaryButton {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    bottom: 20px;
+    margin-left: 700px;
+}
+
+#SummaryContainer {
+    display: none;
+}
+
+.form-box {
+    width: 80%;
+    margin: 50px auto;
+    padding: 15px;
+    border: 1px solid;
+    border-radius: 10px;
+    display: inline-block;
+    float: left;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.inner-box {
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.total-label {
+    font-style: italic;
+    font-size: 15px;
+    margin-left: auto;
+}
+
+.bracket-text {
+    font-size: 0.9em;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* Grid Styles */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.grid-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+    .grid-item label {
+        flex: 1;
+    }
+
+    .grid-item input {
+        flex: 2;
+        max-width: 250px;
+    }
+
+.grid-container .grid-item {
+    border: none;
+}
+
+/* Fieldset Styles */
+fieldset {
+    margin-bottom: 20px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 0px solid #007bff;
+    padding: 8px;
+    text-align: left;
+    font-family: monospace; /* Monospace font for proper alignment */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tfoot td {
+    font-weight: bold;
+}
+
+/* Editable Cell Styles */
+.editable-cell {
+    border: none;
+    padding: 5px;
+}
+
+.editable-input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 100px;
+}
+
+.total-cell {
+    border: none;
+    font-weight: bold;
+}
+
+/* Gantt Chart Styles */
+.gantt-chart {
+    margin-top: 30px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: white;
+}
+
+/* Optional Budget Styles */
+.optional-budget {
+    display: none;
+    margin-top: 20px;
+}
+
+    .optional-budget h3 {
+        margin-top: 20px;
+    }

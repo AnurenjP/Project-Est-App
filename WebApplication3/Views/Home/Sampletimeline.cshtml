@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Sample Timeline";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Timeline</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/site.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="header">Sample Timeline Prepared</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Analysis</th>
+                    <th>Design</th>
+                    <th>Dev Date</th>
+                    <th>QA Date</th>
+                    <th>Perf Testing</th>
+                    <th>Prod Date</th>
+                    <th>BC Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-size: 0.8rem;">
+                        <div>Start: 01/01/2023</div>
+                        <div>End: 01/15/2023</div>
+                    </td>
+                    <td style="font-size: 0.8rem;">
+                        <div>Start: 01/16/2023</div>
+                        <div>End: 01/31/2023</div>
+                    </td>
+                    <td style="font-size: 0.8rem;">
+                        <div>Start: 02/01/2023</div>
+                        <div>End: 02/15/2023</div>
+                    </td>
+                    <td style="font-size: 0.8rem;">
+                        <div>Start: 02/16/2023</div>
+                        <div>End: 02/28/2023</div>
+                    </td>
+                    <td style="font-size: 0.8rem;">
+                        <div>Start: 03/01/2023</div>
+                        <div>End: 03/15/2023</div>
+                    </td>
+                    <td style="font-size: 0.8rem;">
+                        <div>Start: 03/16/2023</div>
+                        <div>End: 03/16/2023</div>
+                    </td>
+                    <td style="font-size: 0.8rem;">
+                        <div>Start: 03/17/2023</div>
+                        <div>End: 03/17/2023</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn-sample-budget" onclick="window.location.href='@Url.Action("Smbud", "Home")'">Show Sample Budget</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add Gantt chart library script here -->
+
+</body>
+</html>

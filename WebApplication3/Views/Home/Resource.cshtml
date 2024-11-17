@@ -1,105 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Timeline and Resources</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 10px;
-            border: 1px solid black; /* Outline for the grid */
-        }
-
-        .grid-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px;
-        }
-
-            .grid-item label {
-                flex: 1;
-            }
-
-            .grid-item input {
-                flex: 2;
-                max-width: 250px; /* Limit the width of the input fields */
-            }
-
-        .grid-container .grid-item {
-            border: none; /* Make other borders invisible */
-        }
-
-        fieldset {
-            margin-bottom: 20px;
-            border: 1px solid black;
-            padding: 10px;
-        }
-
-        legend {
-            font-weight: bold;
-        }
-
-        .continue-button {
-            background-color: blue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-            .continue-button:hover {
-                background-color: darkblue;
-            }
-
-        .form-group input {
-            padding: 3px;
-            width: 150px;
-        }
-
-        .combined-labels {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            margin-bottom: 10px;
-        }
-
-        #SummaryButton {
-            background-color: blue;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            display: inline-block;
-            bottom: 20px;
-            margin-left: 700px;
-        }
-
-        #SummaryContainer {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="~/Content/site.css">
     <script>
-        function navigateTo() {
-            window.location.href = '@Url.Action("Index3", "Home")';
-        }
+        function saveData() {
+            const resources = {};
+            document.querySelectorAll('.grid-item input').forEach(input => {
+                const resourceType = input.name.replace('New', '');
+                if (!resources[resourceType]) {
+                    resources[resourceType] = { count: 0, names: [] };
+                }
+                resources[resourceType].names.push(input.value);
+                resources[resourceType].count++;
+            });
+            sessionStorage.setItem('resources', JSON.stringify(resources));
 
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
+            const projectStartDate = document.getElementById('projectStartDate').value;
+            const projectEndDate = document.getElementById('projectEndDate').value;
+            sessionStorage.setItem('projectStartDate', projectStartDate);
+            sessionStorage.setItem('projectEndDate', projectEndDate);
+
+            window.location.href = '@Url.Content("~/Home/Sampletimeline")'; // Ensure the correct path
+        }
+        function saveData() {
+            const resources = {};
+            document.querySelectorAll('.grid-item input').forEach(input => {
+                const resourceType = input.name.replace('New', '');
+                if (!resources[resourceType]) {
+                    resources[resourceType] = { count: 0, names: [] };
+                }
+                resources[resourceType].names.push(input.value);
+                resources[resourceType].count++;
+            });
+            sessionStorage.setItem('resources', JSON.stringify(resources));
+
+            const projectStartDate = document.getElementById('projectStartDate').value;
+            const projectEndDate = document.getElementById('projectEndDate').value;
+            sessionStorage.setItem('projectStartDate', projectStartDate);
+            sessionStorage.setItem('projectEndDate', projectEndDate);
+
+            window.location.href = '@Url.Content("~/Home/Sampletimeline")'; // Ensure the correct path
         }
 
         function addResource() {
@@ -126,7 +70,12 @@
 
             existingResource.insertAdjacentElement('afterend', newResource);
         }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
     </script>
+    
 </head>
 
 <body>
@@ -215,7 +164,7 @@
             </div>
         </fieldset>
 
-        <button type="button" class="continue-button" onclick="navigateTo()">Submit </button>
+        <button type="button" class="continue-button" onclick="saveData()">Submit</button>
     </form>
 </body>
 

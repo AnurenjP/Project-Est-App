@@ -5,53 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Estimation App</title>
-    <style>
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-        }
-
-            .navbar a {
-                float: left;
-                display: block;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-                .navbar a:hover {
-                    background-color: #ddd;
-                    color: black;
-                }
-
-            .navbar .logo {
-                float: left;
-                padding: 14px 16px;
-                color: #f2f2f2;
-                font-size: 18px;
-                font-weight: bold;
-            }
-
-        .bracket-text {
-            font-size: 0.9em;
-            font-style: italic;
-            opacity: 0.7;
-        }
-
-        .continue-button {
-            background-color: blue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-            .continue-button:hover {
-                background-color: darkblue;
-            }
-    </style>
+    <link rel="stylesheet" href="~/Content/site.css">
+   
     <script type="text/javascript">
         function calculateHours(projectType, complexity) {
             const hoursMatrix = {
@@ -63,13 +18,20 @@
         }
 
         function navigateTo() {
+            const projectName = document.getElementById('projectName').value;
             const projectType = document.querySelector('input[name="projectType"]:checked').value;
             const complexity = document.querySelector('input[name="complexity"]:checked').value;
             const hours = calculateHours(projectType, complexity);
 
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '@Url.Action("SubmitForm", "Home")';
+            form.action = '@Url.Action("Estpage", "Home")';
+
+            const projectNameInput = document.createElement('input');
+            projectNameInput.type = 'hidden';
+            projectNameInput.name = 'projectName';
+            projectNameInput.value = projectName;
+            form.appendChild(projectNameInput);
 
             const projectTypeInput = document.createElement('input');
             projectTypeInput.type = 'hidden';
@@ -96,9 +58,17 @@
 </head>
 
 <body>
-    <br />
+
     <h1>Project Estimation</h1>
     <form>
+        <fieldset>
+            <legend>Project Details</legend>
+            <label for="projectName">Project Name:</label>
+            <input type="text" id="projectName" name="projectName" required>
+        </fieldset>
+        <br />
+
+
         <fieldset>
             <legend>Select the Project Type</legend>
             <label>

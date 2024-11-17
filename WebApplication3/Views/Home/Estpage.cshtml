@@ -4,115 +4,8 @@
 <html lang="en">
 <head>
     <title>Estimation Page</title>
-    <style>
-        .form-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-
-            .form-group label {
-                font-size: 16px;
-                margin-right: 50px;
-                display: inline-block;
-                text-align: left;
-                width: 250px;
-                white-space: nowrap;
-                margin-left: 100px;
-            }
-
-        input[type="text"] {
-            display: inline-block;
-            float: left;
-            margin-top: 10px;
-        }
-
-        .form-group input[type="number"] {
-            padding: 3px;
-            width: 150px;
-            display: inline-block;
-        }
-
-        .combined-labels {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            margin-bottom: 10px;
-        }
-
-        #SummaryButton {
-            background-color: blue;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            display: inline-block;
-            bottom: 20px;
-            margin-left: 700px;
-        }
-
-        #SummaryContainer {
-            display: none;
-        }
-
-        .form-box {
-            width: 80%;
-            margin: 50px auto;
-            padding: 15px;
-            border: 1px solid;
-            border-radius: 10px;
-            display: inline-block;
-            float: left;
-        }
-
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            padding-top: 10px;
-        }
-
-        /*       .section-title input[type="number"] {
-                    padding: 3px;
-                    width: 150px;
-                    margin-left:100px;
-
-                  }
-
-                .section-title form-group {
-                    display: flex;
-                    margin-bottom: 10px;
-                    margin-left: 500px;
-                } */
-
-        .inner-box {
-            padding: 20px;
-            border: 1px solid;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .total-label {
-            font-style: italic;
-            font-size: 15px;
-            margin-left: auto;
-        }
-
-        .continue-button {
-            background-color: blue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-            .continue-button:hover {
-                background-color: darkblue;
-            }
-    </style>
-
-
+    <link rel="stylesheet" href="~/Content/site.css" />
+   
 </head>
 <body>
     <div class="form-box">
@@ -301,7 +194,7 @@
     </div>
     <script>
         function navigateTo() {
-            window.location.href = '@Url.Action("Index2", "Home")';
+            window.location.href = '@Url.Action("Resource", "Home")';
         }
         document.getElementById("SummaryButton").addEventListener("click", function () {
             var Summary = document.getElementById("SummaryContainer");
