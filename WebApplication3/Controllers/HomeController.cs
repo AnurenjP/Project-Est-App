@@ -2,7 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using ProjectEstimationApp.Models;
 using OfficeOpenXml;
+using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Packaging;
+using A = DocumentFormat.OpenXml.Drawing;
 using System.IO;
+using System.IO.Compression;
+using System.Threading;
 
 namespace ProjectEstimationApp.Controllers
 {
@@ -65,7 +70,15 @@ namespace ProjectEstimationApp.Controllers
         public IActionResult GenerateFiles([FromBody] ProjectData projectData)
         {
             var excelFilePath = GenerateExcel(projectData);
-            return Json(new { success = true, excelFilePath });
+            var pptFilePath = GeneratePowerPoint(projectData);
+            var zipFilePath = CreateZipFile(excelFilePath, pptFilePath);
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(zipFilePath);
+            System.IO.File.Delete(excelFilePath);
+            System.IO.File.Delete(pptFilePath);
+            System.IO.File.Delete(zipFilePath);
+
+            return File(fileBytes, "application/zip", "ProjectEstimation.zip");
         }
 
         private string GenerateExcel(ProjectData projectData)
@@ -73,8 +86,8 @@ namespace ProjectEstimationApp.Controllers
             // Set the license context for EPPlus
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var filePath = Path.Combine(downloadsPath, "Downloads", "ProjectEstimation.xlsx");
+            var tempPath = Path.GetTempPath();
+            var filePath = Path.Combine(tempPath, "ProjectEstimation.xlsx");
 
             try
             {
@@ -128,6 +141,113 @@ namespace ProjectEstimationApp.Controllers
             }
 
             return filePath;
+        }
+
+        private string GeneratePowerPoint(ProjectData projectData)
+        {
+            var tempPath = Path.GetTempPath();
+            var filePath = Path.Combine(tempPath, "ProjectEstimation.pptx");
+
+            try
+            {
+                // Retry logic for handling file in use scenario
+                int retryCount = 3;
+                while (retryCount > 0)
+                {
+                    try
+                    {
+                        using (PresentationDocument presentationDocument = PresentationDocument.Create(filePath, DocumentFormat.OpenXml.PresentationDocumentType.Presentation))
+                        {
+                            PresentationPart presentationPart = presentationDocument.AddPresentationPart();
+                            presentationPart.Presentation = new Presentation();
+
+                            SlidePart slidePart = presentationPart.AddNewPart<SlidePart>();
+                            slidePart.Slide = new Slide(new CommonSlideData(new ShapeTree()));
+
+                            SlideLayoutPart slideLayoutPart = slidePart.AddNewPart<SlideLayoutPart>();
+                            slideLayoutPart.SlideLayout = new SlideLayout(new CommonSlideData(new ShapeTree()));
+
+                            SlideMasterPart slideMasterPart = slideLayoutPart.AddNewPart<SlideMasterPart>();
+                            slideMasterPart.SlideMaster = new SlideMaster(new CommonSlideData(new ShapeTree()));
+
+                            SlideIdList slideIdList = presentationPart.Presentation.AppendChild(new SlideIdList());
+                            uint slideId = 256;
+                            SlideId slideIdElement = slideIdList.AppendChild(new SlideId());
+                            slideIdElement.Id = slideId;
+                            slideIdElement.RelationshipId = presentationPart.GetIdOfPart(slidePart);
+
+                            Shape titleShape = slidePart.Slide.CommonSlideData.ShapeTree.AppendChild(new Shape());
+                            titleShape.NonVisualShapeProperties = new NonVisualShapeProperties(
+                                new NonVisualDrawingProperties() { Id = 1, Name = "Title" },
+                                new NonVisualShapeDrawingProperties(new A.ShapeLocks() { NoGrouping = true }),
+                                new ApplicationNonVisualDrawingProperties(new PlaceholderShape() { Type = PlaceholderValues.Title }));
+
+                            titleShape.ShapeProperties = new ShapeProperties();
+                            titleShape.TextBody = new TextBody(new A.BodyProperties(), new A.ListStyle(),
+                                new A.Paragraph(new A.Run(new A.Text("Project Estimation"))));
+
+                            Shape contentShape = slidePart.Slide.CommonSlideData.ShapeTree.AppendChild(new Shape());
+                            contentShape.NonVisualShapeProperties = new NonVisualShapeProperties(
+                                new NonVisualDrawingProperties() { Id = 2, Name = "Content" },
+                                new NonVisualShapeDrawingProperties(new A.ShapeLocks() { NoGrouping = true }),
+                                new ApplicationNonVisualDrawingProperties(new PlaceholderShape() { Index = 1 }));
+
+                            contentShape.ShapeProperties = new ShapeProperties();
+                            contentShape.TextBody = new TextBody(new A.BodyProperties(), new A.ListStyle(),
+                                new A.Paragraph(new A.Run(new A.Text($"Project Start Date: {projectData.ProjectStartDate}"))),
+                                new A.Paragraph(new A.Run(new A.Text($"Project End Date: {projectData.ProjectEndDate}"))));
+
+                            foreach (var resource in projectData.Resources)
+                            {
+                                contentShape.TextBody.AppendChild(new A.Paragraph(new A.Run(new A.Text($"{resource.Name}: {resource.Total}"))));
+                            }
+
+                            foreach (var cost in projectData.AdditionalCosts)
+                            {
+                                contentShape.TextBody.AppendChild(new A.Paragraph(new A.Run(new A.Text($"{cost.Name}: {cost.Total}"))));
+                            }
+
+                            presentationPart.Presentation.Save();
+                        }
+                        break; // Exit the retry loop if successful
+                    }
+                    catch (IOException ex) when (retryCount > 0)
+                    {
+                        _logger.LogWarning(ex, "File in use, retrying...");
+                        retryCount--;
+                        Thread.Sleep(1000); // Wait for 1 second before retrying
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error saving PowerPoint file");
+                throw;
+            }
+
+            return filePath;
+        }
+
+        private string CreateZipFile(string excelFilePath, string pptFilePath)
+        {
+            var tempPath = Path.GetTempPath();
+            var zipFilePath = Path.Combine(tempPath, $"ProjectEstimation_{DateTime.Now:yyyyMMddHHmmss}.zip");
+
+            try
+            {
+                using (var zip = ZipFile.Open(zipFilePath, ZipArchiveMode.Create))
+                {
+                    zip.CreateEntryFromFile(excelFilePath, Path.GetFileName(excelFilePath));
+                    zip.CreateEntryFromFile(pptFilePath, Path.GetFileName(pptFilePath));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating ZIP file");
+                throw;
+            }
+
+            return zipFilePath;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
