@@ -1,28 +1,22 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Estimation Page</title>
     <link rel="stylesheet" href="~/Content/site.css" />
-   
 </head>
 <body>
     <div class="form-box">
         <h2>Estimation Page</h2>
 
         <form>
-
             <div class="section-title form-group col-8">
                 <label for="AnalysisandDesign">Analysis & Design</label>
                 <span id="AnalysisandDesign" class="total-label"></span>
-
             </div>
             <div class="inner-box">
                 <div class="form-group col-9">
                     <label for="Analysisandrequirementsignoff">Analysis and requirement sign off</label>
                     <input type="number" id="Analysisandrequirementsignoff" name="Analysisandrequirementsignoff" oninput="updateSum()">
-
                 </div>
                 <div class="form-group col-9">
                     <label for="FunctionalDesign">Functional Design</label>
@@ -36,14 +30,12 @@
 
             <div class="section-title form-group col-8">
                 <label for="Coding">Coding</label>
-                <span id="AnalysisandDesign" class="total-label"></span>
+                <span id="Coding" class="total-label"></span>
             </div>
             <div class="inner-box">
-
                 <div class="form-group col-9">
                     <label for="Frontendchanges">Frontend changes</label>
                     <input type="number" id="Frontendchanges" name="Frontendchanges" oninput="updateSum()">
-
                 </div>
                 <div class="form-group col-9">
                     <label for="IntegrationChanges">Integration Changes</label>
@@ -57,13 +49,12 @@
 
             <div class="section-title form-group col-8">
                 <label for="UnitTesting">Unit Testing</label>
-                <span id="AnalysisandDesign" class="total-label"></span>
+                <span id="UnitTesting" class="total-label"></span>
             </div>
             <div class="inner-box">
                 <div class="form-group col-9">
                     <label for="UnitTestCasePreparation">Unit Test Case Preparation</label>
                     <input type="number" id="UnitTestCasePreparation" name="UnitTestCasePreparation" oninput="updateSum()">
-
                 </div>
                 <div class="form-group col-9">
                     <label for="UnittestlogsandDefectFix">Unit test logs and Defect Fix</label>
@@ -82,15 +73,15 @@
                     <input type="number" id="UnittestResultReview" name="UnittestResultReview" oninput="updateSum()">
                 </div>
             </div>
+
             <div class="section-title form-group col-8">
                 <label for="QAandUATTesting">QA & UAT Testing</label>
-                <span id="AnalysisandDesign" class="total-label"></span>
+                <span id="QAandUATTesting" class="total-label"></span>
             </div>
             <div class="inner-box">
                 <div class="form-group col-9">
                     <label for="QATestCasePreparation">QA Test Case Preparation</label>
                     <input type="number" id="QATestCasePreparation" name="QATestCasePreparation" oninput="updateSum()">
-
                 </div>
                 <div class="form-group col-9">
                     <label for="QATestingandDefectFix">QA Testing and Defect Fix</label>
@@ -113,9 +104,10 @@
                     <input type="number" id="QAandUATSupport" name="QAandUATSupport" oninput="updateSum()">
                 </div>
             </div>
+
             <div class="section-title form-group col-8">
                 <label for="ReleaseManagement">Release Management</label>
-                <span id="AnalysisandDesign" class="total-label"></span>
+                <span id="ReleaseManagement" class="total-label"></span>
             </div>
             <div class="inner-box">
                 <div class="form-group col-9">
@@ -126,14 +118,14 @@
                         <label for="combined-labels">SDLC Document</label>
                     </div>
                     <div>
-
                         <input type="number" id="combined-labels" name="combined-labels" oninput="updateSum()">
                     </div>
                 </div>
             </div>
+
             <div class="section-title form-group col-8">
                 <label for="Support">Support</label>
-                <span id="AnalysisandDesign" class="total-label"></span>
+                <span id="Support" class="total-label"></span>
             </div>
             <div class="inner-box">
                 <div class="form-group col-9">
@@ -145,23 +137,19 @@
                     <input type="number" id="WarrantySupport" name="WarrantySupport" oninput="updateSum()">
                 </div>
             </div>
-
         </form>
-
 
         <button id="SummaryButton" onclick="updatesummary()">Summary</button>
 
-        <form id="SummaryContainer">
+        <form id="SummaryContainer" style="display: none;">
             <div class="section-title form-group col-8">
                 <label for="EstimationSummary">Estimation Summary</label>
-                <span id="AnalysisandDesign" class="total-label"></span>
+                <span id="EstimationSummary" class="total-label"></span>
             </div>
             <div class="inner-box">
-
                 <div class="form-group col-9">
                     <label for="AnalysisandDesign1">Analysis & Design</label>
                     <input type="number" id="AnalysisandDesign1" name="AnalysisandDesign1" readonly>
-
                 </div>
                 <div class="form-group col-9">
                     <label for="Construction">Construction</label>
@@ -183,30 +171,23 @@
                     <label for="Warantysupport">Waranty Support</label>
                     <input type="number" id="Warantysupport" name="Warantysupport" readonly>
                 </div>
-                @* <div class="form-group col-9">
-                <label for="Total">Total</label>
-                <input type="number" id="Total" name="Total" readonly>
-                </div> *@
             </div>
             <button type="button" class="continue-button" onclick="navigateTo()">Continue</button>
-
         </form>
     </div>
+
     <script>
         function navigateTo() {
             window.location.href = '@Url.Action("Resource", "Home")';
         }
+
         document.getElementById("SummaryButton").addEventListener("click", function () {
             var Summary = document.getElementById("SummaryContainer");
             if (Summary.style.display === "none" || Summary.style.display === "") {
                 Summary.style.display = "block";
-
-                // } else {
-                //     Summary.style.display = "none";
-                // }
             }
-
         });
+
         function updateSum() {
             const analysis = parseFloat(document.getElementById('Analysisandrequirementsignoff').value) || 0;
             const functional = parseFloat(document.getElementById('FunctionalDesign').value) || 0;
@@ -215,9 +196,7 @@
             const sum = analysis + functional + technical;
             document.getElementById('AnalysisandDesign').innerText = sum;
 
-
-
-            //sum for Coding
+            // Sum for Coding
             const frontend = parseFloat(document.getElementById('Frontendchanges').value) || 0;
             const Integration = parseFloat(document.getElementById('IntegrationChanges').value) || 0;
             const backend = parseFloat(document.getElementById('BackendChanges').value) || 0;
@@ -225,20 +204,17 @@
             const sum1 = frontend + Integration + backend;
             document.getElementById('Coding').innerText = sum1;
 
-
-            //sum for UnitTesting
+            // Sum for Unit Testing
             const UnitTestCase = parseFloat(document.getElementById('UnitTestCasePreparation').value) || 0;
             const testlogsandDefectFix = parseFloat(document.getElementById('UnittestlogsandDefectFix').value) || 0;
             const Review = parseFloat(document.getElementById('CodeReview').value) || 0;
             const TestCaseReview = parseFloat(document.getElementById('UnitTestCaseReview').value) || 0;
             const testResultReview = parseFloat(document.getElementById('UnittestResultReview').value) || 0;
 
-
             const sum2 = UnitTestCase + testlogsandDefectFix + Review + TestCaseReview + testResultReview;
             document.getElementById('UnitTesting').innerText = sum2;
 
-
-            //sum for QA & UAT Testing
+            // Sum for QA & UAT Testing
             const QATestCase = parseFloat(document.getElementById('QATestCasePreparation').value) || 0;
             const QATestingandDefectFix = parseFloat(document.getElementById('QATestingandDefectFix').value) || 0;
             const IntegrationTest = parseFloat(document.getElementById('IntegrationTesting').value) || 0;
@@ -249,29 +225,24 @@
             const sum3 = QATestCase + QATestingandDefectFix + IntegrationTest + UATTestandDefectFix + QAtestResultReview + QAUATSupport;
             document.getElementById('QAandUATTesting').innerText = sum3;
 
-
-            //sum for Release Management
+            // Sum for Release Management
             const combined = parseFloat(document.getElementById('combined-labels').value) || 0;
-
             const sum4 = combined;
             document.getElementById('ReleaseManagement').innerText = sum4;
 
-
-            //sum for Support
+            // Sum for Support
             const Deployment = parseFloat(document.getElementById('DeploymentSupport').value) || 0;
             const Warranty = parseFloat(document.getElementById('WarrantySupport').value) || 0;
 
             const sum5 = Deployment + Warranty;
             document.getElementById('Support').innerText = sum5;
-
         }
 
-        //Sum for Estimation summary
         function updatesummary() {
             const AnalysisandDesign1field = document.getElementById('AnalysisandDesign').innerText;
             document.getElementById('AnalysisandDesign1').value = AnalysisandDesign1field;
 
-            // sum for construction
+            // Sum for construction
             const Construction1 = parseFloat(document.getElementById('Coding').innerText);
             const Construction2 = parseFloat(document.getElementById('UnitTesting').innerText);
             const Construction3 = parseFloat(document.getElementById('ReleaseManagement').innerText);
@@ -279,24 +250,23 @@
             const construction = Construction1 + Construction2 + Construction3;
             document.getElementById('Construction').value = construction;
 
-            //Deployment
+            // Deployment
             const Deploymentfield = document.getElementById('DeploymentSupport').value;
             document.getElementById('Deploymentsupport').value = Deploymentfield;
 
-            //Waranty
+            // Warranty
             const Warrantyfield = document.getElementById('WarrantySupport').value;
             document.getElementById('Warantysupport').value = Warrantyfield;
 
             // QA & UAT
             const Percentage = parseFloat(document.getElementById('QAandUATTesting').innerText);
-
             const QApercentage = (Percentage * 60) / 100;
             const UATpercentage = (Percentage * 40) / 100;
 
             document.getElementById('QA').value = QApercentage;
             document.getElementById('UAT').value = UATpercentage;
 
-            //Estimation Summary
+            // Estimation Summary
             const Analysis = parseFloat(document.getElementById('AnalysisandDesign1').value) || 0;
             const Construct = parseFloat(document.getElementById('Construction').value) || 0;
             const Deploy = parseFloat(document.getElementById('Deploymentsupport').value) || 0;
@@ -306,13 +276,116 @@
 
             const summary = Analysis + Construct + Deploy + Waranty + QA + UAT;
             document.getElementById('EstimationSummary').innerText = summary;
-
-
         }
 
+        function timeLine() {
+            // Retrieve values from input fields and store them in localStorage
+            const Analysisandrequirementsignoff = parseFloat(document.getElementById('Analysisandrequirementsignoff').value) || 0;
+            localStorage.setItem('Analysisandrequirementsignoff', Analysisandrequirementsignoff);
+            console.log("Analysisandrequirementsignoff :", Analysisandrequirementsignoff);
 
+            const functional = parseFloat(document.getElementById('FunctionalDesign').value) || 0;
+            localStorage.setItem('FunctionalDesign', functional);
+            const technical = parseFloat(document.getElementById('TechnicalDesign').value) || 0;
+            localStorage.setItem('TechnicalDesign', technical);
+
+            const Frontendchanges = parseFloat(document.getElementById('Frontendchanges').value) || 0;
+            localStorage.setItem('Frontendchanges', Frontendchanges);
+            const IntegrationChanges = parseFloat(document.getElementById('IntegrationChanges').value) || 0;
+            const BackendChanges = parseFloat(document.getElementById('BackendChanges').value) || 0;
+
+            localStorage.setItem('IntegrationChanges', IntegrationChanges);
+            console.log("IntegrationChanges :", IntegrationChanges);
+            localStorage.setItem('BackendChanges', BackendChanges);
+            console.log("BackendChanges :", BackendChanges);
+
+            const UnitTestCasePreparation = parseFloat(document.getElementById('UnitTestCasePreparation').value) || 0;
+            const UnittestlogsandDefectFix = parseFloat(document.getElementById('UnittestlogsandDefectFix').value) || 0;
+            const CodeReview = parseFloat(document.getElementById('CodeReview').value) || 0;
+            const UnitTestCaseReview = parseFloat(document.getElementById('UnitTestCaseReview').value) || 0;
+            const UnittestResultReview = parseFloat(document.getElementById('UnittestResultReview').value) || 0;
+
+            localStorage.setItem('UnitTestCasePreparation', UnitTestCasePreparation);
+            localStorage.setItem('UnittestlogsandDefectFix', UnittestlogsandDefectFix);
+            localStorage.setItem('CodeReview', CodeReview);
+            localStorage.setItem('UnitTestCaseReview', UnitTestCaseReview);
+            localStorage.setItem('UnittestResultReview', UnittestResultReview);
+
+            const Releasemanagement = parseFloat(document.getElementById('Releasemanagement').value) || 0;
+            localStorage.setItem('Releasemanagement', Releasemanagement);
+
+            const QAandTestResultReview = parseFloat(document.getElementById('QAandTestResultReview').value) || 0;
+            localStorage.setItem('QAandTestResultReview', QAandTestResultReview);
+            const QAandUATSupport = parseFloat(document.getElementById('QAandUATSupport').value) || 0;
+            localStorage.setItem('QAandUATSupport', QAandUATSupport);
+
+            const QATestCase = parseFloat(document.getElementById('QATestCasePreparation').value) || 0;
+            const QATestingandDefectFix = parseFloat(document.getElementById('QATestingandDefectFix').value) || 0;
+            const IntegrationTest = parseFloat(document.getElementById('IntegrationTesting').value) || 0;
+
+            localStorage.setItem('QATestCasePreparation', QATestCase);
+            localStorage.setItem('QATestingandDefectFix', QATestingandDefectFix);
+            localStorage.setItem('IntegrationTesting', IntegrationTest);
+
+            const UATTestandDefectFix = parseFloat(document.getElementById('UATTestingandDefectFix').value) || 0;
+            localStorage.setItem('UATTestingandDefectFix', UATTestandDefectFix);
+
+            const Deployment = parseFloat(document.getElementById('DeploymentSupport').value) || 0;
+            localStorage.setItem('DeploymentSupport', Deployment);
+
+            const Warranty = parseFloat(document.getElementById('WarrantySupport').value) || 0;
+            localStorage.setItem('WarrantySupport', Warranty);
+        }
+
+        function load() {
+            // Retrieve project type and complexity from localStorage
+            const projectType = localStorage.getItem('projectType');
+            const projectComplexity = localStorage.getItem('projectComplexity');
+            console.log("Retrieved type:", projectType);
+            console.log("Retrieved Complexity:", projectComplexity);
+
+            // Define default values for different project types and complexities
+            const defaultValues = {
+                "Small-Low": {
+                    "Analysisandrequirementsignoff": 2, "FunctionalDesign": 2, "TechnicalDesign": 3, "Frontendchanges": 20, "IntegrationChanges": 10, "BackendChanges": 10,
+                    "UnitTestCasePreparation": 1, "UnittestlogsandDefectFix": 6, "CodeReview": 1, "UnitTestCaseReview": 1, "UnittestResultReview": 1, "QATestCasePreparation": 2, "QATestingandDefectFix": 13,
+                    "IntegrationTesting": 4, "UATTestingandDefectFix": 8, "QAandTestResultReview": 1, "QAandUATSupport": 4, "Releasemanagement": 10, "DeploymentSupport": 1, "WarrantySupport": 0
+                },
+                // Other default values...
+            };
+
+            // Construct the key to retrieve the appropriate default values
+            const selectedkey = `${projectType}-${projectComplexity}`;
+            console.log("selectedKey:", selectedkey);
+            const values = defaultValues[selectedkey];
+
+            // If values exist for the selected key, set the input fields with these values
+            if (values) {
+                document.getElementById('Analysisandrequirementsignoff').value = values.Analysisandrequirementsignoff;
+                document.getElementById('FunctionalDesign').value = values.FunctionalDesign;
+                document.getElementById('TechnicalDesign').value = values.TechnicalDesign;
+                document.getElementById('Frontendchanges').value = values.Frontendchanges;
+                document.getElementById('IntegrationChanges').value = values.IntegrationChanges;
+                document.getElementById('BackendChanges').value = values.BackendChanges;
+                document.getElementById('UnitTestCasePreparation').value = values.UnitTestCasePreparation;
+                document.getElementById('UnittestlogsandDefectFix').value = values.UnittestlogsandDefectFix;
+                document.getElementById('CodeReview').value = values.CodeReview;
+                document.getElementById('UnitTestCaseReview').value = values.UnitTestCaseReview;
+                document.getElementById('UnittestResultReview').value = values.UnittestResultReview;
+                document.getElementById('QATestCasePreparation').value = values.QATestCasePreparation;
+                document.getElementById('QATestingandDefectFix').value = values.QATestingandDefectFix;
+                document.getElementById('IntegrationTesting').value = values.IntegrationTesting;
+                document.getElementById('UATTestingandDefectFix').value = values.UATTestingandDefectFix;
+                document.getElementById('QAandTestResultReview').value = values.QAandTestResultReview;
+                document.getElementById('QAandUATSupport').value = values.QAandUATSupport;
+                document.getElementById('Releasemanagement').value = values.Releasemanagement;
+                document.getElementById('DeploymentSupport').value = values.DeploymentSupport;
+                document.getElementById('WarrantySupport').value = values.WarrantySupport;
+
+                // Update the sum of the fields
+                updateSum();
+            }
+        }
     </script>
-
 </body>
 </html>
-

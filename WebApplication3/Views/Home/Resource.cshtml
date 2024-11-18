@@ -17,12 +17,12 @@
                 resources[resourceType].names.push(input.value);
                 resources[resourceType].count++;
             });
-            sessionStorage.setItem('resources', JSON.stringify(resources));
+            localStorage.setItem('resources', JSON.stringify(resources));
 
             const projectStartDate = document.getElementById('projectStartDate').value;
             const projectEndDate = document.getElementById('projectEndDate').value;
-            sessionStorage.setItem('projectStartDate', projectStartDate);
-            sessionStorage.setItem('projectEndDate', projectEndDate);
+            localStorage.setItem('projectStartDate', projectStartDate);
+            localStorage.setItem('projectEndDate', projectEndDate);
 
             window.location.href = '@Url.Content("~/Home/Sampletimeline")'; // Ensure the correct path
         }
@@ -36,12 +36,12 @@
                 resources[resourceType].names.push(input.value);
                 resources[resourceType].count++;
             });
-            sessionStorage.setItem('resources', JSON.stringify(resources));
+            localStorage.setItem('resources', JSON.stringify(resources));
 
             const projectStartDate = document.getElementById('projectStartDate').value;
             const projectEndDate = document.getElementById('projectEndDate').value;
-            sessionStorage.setItem('projectStartDate', projectStartDate);
-            sessionStorage.setItem('projectEndDate', projectEndDate);
+            localStorage.setItem('projectStartDate', projectStartDate);
+            localStorage.setItem('projectEndDate', projectEndDate);
 
             window.location.href = '@Url.Content("~/Home/Sampletimeline")'; // Ensure the correct path
         }

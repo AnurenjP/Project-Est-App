@@ -10,7 +10,52 @@
     <title>Sample Budget</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/site.css">
+    <script>
+        async function generateBudget() {
+            const resources = [];
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const name = row.querySelector('.editable-cell').innerText;
+                const cost = parseFloat(row.querySelector('.cost').value) || 0;
+                const numberOfResources = parseFloat(row.querySelector('.number-of-resources').value) || 0;
+                resources.push({ name, cost, numberOfResources });
+            });
 
+            const projectStartDate = localStorage.getItem('projectStartDate');
+            const projectEndDate = localStorage.getItem('projectEndDate');
+
+            const additionalCosts = [];
+            document.querySelectorAll('#optionalBudget tbody tr').forEach(row => {
+                const name = row.querySelector('.editable-cell').innerText;
+                const cost = parseFloat(row.querySelector('.cost').value) || 0;
+                const numberOfResources = parseFloat(row.querySelector('.number-of-resources').value) || 0;
+                additionalCosts.push({ name, cost, numberOfResources });
+            });
+
+            const response = await fetch('/Home/GenerateFiles', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    resources,
+                    projectStartDate,
+                    projectEndDate,
+                    additionalCosts
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Files generated:', data);
+                // Provide download links for the generated files
+                document.getElementById('downloadLinks').innerHTML = `
+                        <a href="${data.excelFilePath}" download>Download Excel</a>
+                    `;
+            } else {
+                console.error('Error generating files:', response.statusText);
+            }
+        }
+    </script>
     <script>
         function toggleOptionalBudget() {
             var optionalBudget = document.getElementById('optionalBudget');
@@ -48,7 +93,7 @@
             });
         }
         function populateResources() {
-            var resources = JSON.parse(sessionStorage.getItem('resources')) || {};
+            var resources = JSON.parse(localStorage.getItem('resources')) || {};
             for (var key in resources) {
                 if (resources.hasOwnProperty(key)) {
                     var input = document.querySelector(`input[name="${key}"]`);
@@ -257,6 +302,8 @@
                     </tr>
                 </tbody>
             </table>
+            <button class="btn-customize" onclick="generateBudget()">Generate Budget</button>
+
         </div>
     </div>
 </body>
