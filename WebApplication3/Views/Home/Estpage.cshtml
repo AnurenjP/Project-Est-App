@@ -105,7 +105,7 @@
                 </div>
             </div>
 
-            <div class="section-title form-group col-8">
+            <div class="form-group col-8">
                 <label for="ReleaseManagement">Release Management</label>
                 <span id="ReleaseManagement" class="total-label"></span>
             </div>
@@ -118,7 +118,7 @@
                         <label for="combined-labels">SDLC Document</label>
                     </div>
                     <div>
-                        <input type="number" id="combined-labels" name="combined-labels" oninput="updateSum()">
+                        <input type="number" id="Releasemanagement" name="Releasemanagement" oninput="updateSum()">
                     </div>
                 </div>
             </div>
@@ -226,7 +226,8 @@
             document.getElementById('QAandUATTesting').innerText = sum3;
 
             // Sum for Release Management
-            const combined = parseFloat(document.getElementById('combined-labels').value) || 0;
+            const combined = parseFloat(document.getElementById('Releasemanagement').value) || 0;
+
             const sum4 = combined;
             document.getElementById('ReleaseManagement').innerText = sum4;
 
@@ -278,8 +279,155 @@
             document.getElementById('EstimationSummary').innerText = summary;
         }
 
+        // function timeLine() {
+        //     // Retrieve values from input fields and store them in localStorage
+        //     const Analysisandrequirementsignoff = parseFloat(document.getElementById('Analysisandrequirementsignoff').value) || 0;
+        //     localStorage.setItem('Analysisandrequirementsignoff', Analysisandrequirementsignoff);
+        //     console.log("Analysisandrequirementsignoff :", Analysisandrequirementsignoff);
+
+        //     const functional = parseFloat(document.getElementById('FunctionalDesign').value) || 0;
+        //     localStorage.setItem('FunctionalDesign', functional);
+        //     const technical = parseFloat(document.getElementById('TechnicalDesign').value) || 0;
+        //     localStorage.setItem('TechnicalDesign', technical);
+
+        //     const Frontendchanges = parseFloat(document.getElementById('Frontendchanges').value) || 0;
+        //     localStorage.setItem('Frontendchanges', Frontendchanges);
+        //     const IntegrationChanges = parseFloat(document.getElementById('IntegrationChanges').value) || 0;
+        //     const BackendChanges = parseFloat(document.getElementById('BackendChanges').value) || 0;
+
+        //     localStorage.setItem('IntegrationChanges', IntegrationChanges);
+        //     console.log("IntegrationChanges :", IntegrationChanges);
+        //     localStorage.setItem('BackendChanges', BackendChanges);
+        //     console.log("BackendChanges :", BackendChanges);
+
+        //     const UnitTestCasePreparation = parseFloat(document.getElementById('UnitTestCasePreparation').value) || 0;
+        //     const UnittestlogsandDefectFix = parseFloat(document.getElementById('UnittestlogsandDefectFix').value) || 0;
+        //     const CodeReview = parseFloat(document.getElementById('CodeReview').value) || 0;
+        //     const UnitTestCaseReview = parseFloat(document.getElementById('UnitTestCaseReview').value) || 0;
+        //     const UnittestResultReview = parseFloat(document.getElementById('UnittestResultReview').value) || 0;
+
+        //     localStorage.setItem('UnitTestCasePreparation', UnitTestCasePreparation);
+        //     localStorage.setItem('UnittestlogsandDefectFix', UnittestlogsandDefectFix);
+        //     localStorage.setItem('CodeReview', CodeReview);
+        //     localStorage.setItem('UnitTestCaseReview', UnitTestCaseReview);
+        //     localStorage.setItem('UnittestResultReview', UnittestResultReview);
+
+        //     const Releasemanagement = parseFloat(document.getElementById('Releasemanagement').value) || 0;
+        //     localStorage.setItem('Releasemanagement', Releasemanagement);
+
+        //     const QAandTestResultReview = parseFloat(document.getElementById('QAandTestResultReview').value) || 0;
+        //     localStorage.setItem('QAandTestResultReview', QAandTestResultReview);
+        //     const QAandUATSupport = parseFloat(document.getElementById('QAandUATSupport').value) || 0;
+        //     localStorage.setItem('QAandUATSupport', QAandUATSupport);
+
+        //     const QATestCase = parseFloat(document.getElementById('QATestCasePreparation').value) || 0;
+        //     const QATestingandDefectFix = parseFloat(document.getElementById('QATestingandDefectFix').value) || 0;
+        //     const IntegrationTest = parseFloat(document.getElementById('IntegrationTesting').value) || 0;
+
+        //     localStorage.setItem('QATestCasePreparation', QATestCase);
+        //     localStorage.setItem('QATestingandDefectFix', QATestingandDefectFix);
+        //     localStorage.setItem('IntegrationTesting', IntegrationTest);
+
+        //     const UATTestandDefectFix = parseFloat(document.getElementById('UATTestingandDefectFix').value) || 0;
+        //     localStorage.setItem('UATTestingandDefectFix', UATTestandDefectFix);
+
+        //     const Deployment = parseFloat(document.getElementById('DeploymentSupport').value) || 0;
+        //     localStorage.setItem('DeploymentSupport', Deployment);
+
+        //     const Warranty = parseFloat(document.getElementById('WarrantySupport').value) || 0;
+        //     localStorage.setItem('WarrantySupport', Warranty);
+        // }
+
+        function load() {
+
+            const projectType = localStorage.getItem('projectType');
+            const projectComplexity = localStorage.getItem('projectComplexity');
+            console.log("Retreived type:", projectType);
+            console.log("Retreived Complexity:", projectComplexity);
+
+            const defaultValues = {
+                "Small-Low": {
+                    "Analysisandrequirementsignoff": 2, "FunctionalDesign": 2, "TechnicalDesign": 3, "Frontendchanges": 20, "IntegrationChanges": 10, "BackendChanges": 10,
+                    "UnitTestCasePreparation": 1, "UnittestlogsandDefectFix": 6, "CodeReview": 1, "UnitTestCaseReview": 1, "UnittestResultReview": 1, "QATestCasePreparation": 2, "QATestingandDefectFix": 13,
+                    "IntegrationTesting": 4, "UATTestingandDefectFix": 8, "QAandTestResultReview": 1, "QAandUATSupport": 4, "Releasemanagement": 10, "DeploymentSupport": 1, "WarrantySupport": 0
+                },
+                "Small-Medium": {
+                    "Analysisandrequirementsignoff": 2, "FunctionalDesign": 3, "TechnicalDesign": 5, "Frontendchanges": 30, "IntegrationChanges": 15, "BackendChanges": 15,
+                    "UnitTestCasePreparation": 1, "UnittestlogsandDefectFix": 12, "CodeReview": 2, "UnitTestCaseReview": 1, "UnittestResultReview": 1, "QATestCasePreparation": 3, "QATestingandDefectFix": 20,
+                    "IntegrationTesting": 6, "UATTestingandDefectFix": 10, "QAandTestResultReview": 1, "QAandUATSupport": 6, "Releasemanagement": 15, "DeploymentSupport": 1, "WarrantySupport": 1
+                },
+                "Small-High": {
+                    "Analysisandrequirementsignoff": 2, "FunctionalDesign": 4, "TechnicalDesign": 18, "Frontendchanges": 40, "IntegrationChanges": 20, "BackendChanges": 20,
+                    "UnitTestCasePreparation": 2, "UnittestlogsandDefectFix": 12, "CodeReview": 2, "UnitTestCaseReview": 1, "UnittestResultReview": 1, "QATestCasePreparation": 4, "QATestingandDefectFix": 26,
+                    "IntegrationTesting": 8, "UATTestingandDefectFix": 16, "QAandTestResultReview": 2, "QAandUATSupport": 8, "Releasemanagement": 20, "DeploymentSupport": 2, "WarrantySupport": 2
+                },
+                "Medium-Low": {
+                    "Analysisandrequirementsignoff": 3, "FunctionalDesign": 6, "TechnicalDesign": 12, "Frontendchanges": 60, "IntegrationChanges": 32, "BackendChanges": 35,
+                    "UnitTestCasePreparation": 2, "UnittestlogsandDefectFix": 16, "CodeReview": 2, "UnitTestCaseReview": 1, "UnittestResultReview": 1, "QATestCasePreparation": 4, "QATestingandDefectFix": 40,
+                    "IntegrationTesting": 12, "UATTestingandDefectFix": 24, "QAandTestResultReview": 3, "QAandUATSupport": 12, "Releasemanagement": 25, "DeploymentSupport": 2, "WarrantySupport": 8
+                },
+                "Medium-Medium": {
+                    "Analysisandrequirementsignoff": 4, "FunctionalDesign": 8, "TechnicalDesign": 16, "Frontendchanges": 80, "IntegrationChanges": 40, "BackendChanges": 40,
+                    "UnitTestCasePreparation": 4, "UnittestlogsandDefectFix": 24, "CodeReview": 4, "UnitTestCaseReview": 2, "UnittestResultReview": 2, "QATestCasePreparation": 6, "QATestingandDefectFix": 54,
+                    "IntegrationTesting": 18, "UATTestingandDefectFix": 32, "QAandTestResultReview": 4, "QAandUATSupport": 16, "Releasemanagement": 30, "DeploymentSupport": 4, "WarrantySupport": 12
+                },
+                "Medium-High": {
+                    "Analysisandrequirementsignoff": 6, "FunctionalDesign": 8, "TechnicalDesign": 16, "Frontendchanges": 100, "IntegrationChanges": 50, "BackendChanges": 50,
+                    "UnitTestCasePreparation": 4, "UnittestlogsandDefectFix": 30, "CodeReview": 5, "UnitTestCaseReview": 3, "UnittestResultReview": 3, "QATestCasePreparation": 6, "QATestingandDefectFix": 80,
+                    "IntegrationTesting": 24, "UATTestingandDefectFix": 35, "QAandTestResultReview": 6, "QAandUATSupport": 24, "Releasemanagement": 30, "DeploymentSupport": 4, "WarrantySupport": 16
+                },
+                "Large-Low": {
+                    "Analysisandrequirementsignoff": 6, "FunctionalDesign": 12, "TechnicalDesign": 24, "Frontendchanges": 120, "IntegrationChanges": 70, "BackendChanges": 70,
+                    "UnitTestCasePreparation": 4, "UnittestlogsandDefectFix": 32, "CodeReview": 4, "UnitTestCaseReview": 2, "UnittestResultReview": 2, "QATestCasePreparation": 8, "QATestingandDefectFix": 80,
+                    "IntegrationTesting": 24, "UATTestingandDefectFix": 50, "QAandTestResultReview": 6, "QAandUATSupport": 24, "Releasemanagement": 30, "DeploymentSupport": 8, "WarrantySupport": 24
+                },
+                "Large-Medium": {
+                    "Analysisandrequirementsignoff": 8, "FunctionalDesign": 15, "TechnicalDesign": 25, "Frontendchanges": 140, "IntegrationChanges": 80, "BackendChanges": 80,
+                    "UnitTestCasePreparation": 4, "UnittestlogsandDefectFix": 40, "CodeReview": 6, "UnitTestCaseReview": 3, "UnittestResultReview": 3, "QATestCasePreparation": 8, "QATestingandDefectFix": 100,
+                    "IntegrationTesting": 30, "UATTestingandDefectFix": 60, "QAandTestResultReview": 6, "QAandUATSupport": 24, "Releasemanagement": 30, "DeploymentSupport": 8, "WarrantySupport": 30
+                },
+                "Large-High": {
+                    "Analysisandrequirementsignoff": 10, "FunctionalDesign": 16, "TechnicalDesign": 32, "Frontendchanges": 160, "IntegrationChanges": 80, "BackendChanges": 80,
+                    "UnitTestCasePreparation": 6, "UnittestlogsandDefectFix": 50, "CodeReview": 8, "UnitTestCaseReview": 4, "UnittestResultReview": 4, "QATestCasePreparation": 12, "QATestingandDefectFix": 120,
+                    "IntegrationTesting": 36, "UATTestingandDefectFix": 64, "QAandTestResultReview": 8, "QAandUATSupport": 32, "Releasemanagement": 30, "DeploymentSupport": 8, "WarrantySupport": 40
+                }
+            };
+
+            const selectedkey = `${projectType}-${projectComplexity}`;
+            console.log("selectedKey:", selectedkey);
+            const values = defaultValues[selectedkey];
+
+            if (values) {
+                document.getElementById('Analysisandrequirementsignoff').value = values.Analysisandrequirementsignoff;
+                document.getElementById('FunctionalDesign').value = values.FunctionalDesign;
+                document.getElementById('TechnicalDesign').value = values.TechnicalDesign;
+                document.getElementById('Frontendchanges').value = values.Frontendchanges;
+                document.getElementById('IntegrationChanges').value = values.IntegrationChanges;
+                document.getElementById('BackendChanges').value = values.BackendChanges;
+                document.getElementById('UnitTestCasePreparation').value = values.UnitTestCasePreparation;
+                document.getElementById('UnittestlogsandDefectFix').value = values.UnittestlogsandDefectFix;
+                document.getElementById('CodeReview').value = values.CodeReview;
+                document.getElementById('UnitTestCaseReview').value = values.UnitTestCaseReview;
+                document.getElementById('UnittestResultReview').value = values.UnittestResultReview;
+                document.getElementById('QATestCasePreparation').value = values.QATestCasePreparation;
+                document.getElementById('QATestingandDefectFix').value = values.QATestingandDefectFix;
+                document.getElementById('IntegrationTesting').value = values.IntegrationTesting;
+                document.getElementById('UATTestingandDefectFix').value = values.UATTestingandDefectFix;
+                document.getElementById('QAandTestResultReview').value = values.QAandTestResultReview;
+                document.getElementById('QAandUATSupport').value = values.QAandUATSupport;
+                document.getElementById('Releasemanagement').value = values.Releasemanagement;
+                document.getElementById('DeploymentSupport').value = values.DeploymentSupport;
+                document.getElementById('WarrantySupport').value = values.WarrantySupport;
+
+
+                updateSum();
+
+            }
+
+        }
         function timeLine() {
-            // Retrieve values from input fields and store them in localStorage
+
+
             const Analysisandrequirementsignoff = parseFloat(document.getElementById('Analysisandrequirementsignoff').value) || 0;
             localStorage.setItem('Analysisandrequirementsignoff', Analysisandrequirementsignoff);
             console.log("Analysisandrequirementsignoff :", Analysisandrequirementsignoff);
@@ -289,10 +437,13 @@
             const technical = parseFloat(document.getElementById('TechnicalDesign').value) || 0;
             localStorage.setItem('TechnicalDesign', technical);
 
+
+
             const Frontendchanges = parseFloat(document.getElementById('Frontendchanges').value) || 0;
             localStorage.setItem('Frontendchanges', Frontendchanges);
             const IntegrationChanges = parseFloat(document.getElementById('IntegrationChanges').value) || 0;
             const BackendChanges = parseFloat(document.getElementById('BackendChanges').value) || 0;
+
 
             localStorage.setItem('IntegrationChanges', IntegrationChanges);
             console.log("IntegrationChanges :", IntegrationChanges);
@@ -305,11 +456,13 @@
             const UnitTestCaseReview = parseFloat(document.getElementById('UnitTestCaseReview').value) || 0;
             const UnittestResultReview = parseFloat(document.getElementById('UnittestResultReview').value) || 0;
 
+            // const UnitTesting = UnitTestCase + testlogsandDefectFix + Review + TestCaseReview + testResultReview;
             localStorage.setItem('UnitTestCasePreparation', UnitTestCasePreparation);
             localStorage.setItem('UnittestlogsandDefectFix', UnittestlogsandDefectFix);
             localStorage.setItem('CodeReview', CodeReview);
             localStorage.setItem('UnitTestCaseReview', UnitTestCaseReview);
             localStorage.setItem('UnittestResultReview', UnittestResultReview);
+
 
             const Releasemanagement = parseFloat(document.getElementById('Releasemanagement').value) || 0;
             localStorage.setItem('Releasemanagement', Releasemanagement);
@@ -335,57 +488,27 @@
 
             const Warranty = parseFloat(document.getElementById('WarrantySupport').value) || 0;
             localStorage.setItem('WarrantySupport', Warranty);
+
+
         }
-
-        function load() {
-            // Retrieve project type and complexity from localStorage
-            const projectType = localStorage.getItem('projectType');
-            const projectComplexity = localStorage.getItem('projectComplexity');
-            console.log("Retrieved type:", projectType);
-            console.log("Retrieved Complexity:", projectComplexity);
-
-            // Define default values for different project types and complexities
-            const defaultValues = {
-                "Small-Low": {
-                    "Analysisandrequirementsignoff": 2, "FunctionalDesign": 2, "TechnicalDesign": 3, "Frontendchanges": 20, "IntegrationChanges": 10, "BackendChanges": 10,
-                    "UnitTestCasePreparation": 1, "UnittestlogsandDefectFix": 6, "CodeReview": 1, "UnitTestCaseReview": 1, "UnittestResultReview": 1, "QATestCasePreparation": 2, "QATestingandDefectFix": 13,
-                    "IntegrationTesting": 4, "UATTestingandDefectFix": 8, "QAandTestResultReview": 1, "QAandUATSupport": 4, "Releasemanagement": 10, "DeploymentSupport": 1, "WarrantySupport": 0
-                },
-                // Other default values...
-            };
-
-            // Construct the key to retrieve the appropriate default values
-            const selectedkey = `${projectType}-${projectComplexity}`;
-            console.log("selectedKey:", selectedkey);
-            const values = defaultValues[selectedkey];
-
-            // If values exist for the selected key, set the input fields with these values
-            if (values) {
-                document.getElementById('Analysisandrequirementsignoff').value = values.Analysisandrequirementsignoff;
-                document.getElementById('FunctionalDesign').value = values.FunctionalDesign;
-                document.getElementById('TechnicalDesign').value = values.TechnicalDesign;
-                document.getElementById('Frontendchanges').value = values.Frontendchanges;
-                document.getElementById('IntegrationChanges').value = values.IntegrationChanges;
-                document.getElementById('BackendChanges').value = values.BackendChanges;
-                document.getElementById('UnitTestCasePreparation').value = values.UnitTestCasePreparation;
-                document.getElementById('UnittestlogsandDefectFix').value = values.UnittestlogsandDefectFix;
-                document.getElementById('CodeReview').value = values.CodeReview;
-                document.getElementById('UnitTestCaseReview').value = values.UnitTestCaseReview;
-                document.getElementById('UnittestResultReview').value = values.UnittestResultReview;
-                document.getElementById('QATestCasePreparation').value = values.QATestCasePreparation;
-                document.getElementById('QATestingandDefectFix').value = values.QATestingandDefectFix;
-                document.getElementById('IntegrationTesting').value = values.IntegrationTesting;
-                document.getElementById('UATTestingandDefectFix').value = values.UATTestingandDefectFix;
-                document.getElementById('QAandTestResultReview').value = values.QAandTestResultReview;
-                document.getElementById('QAandUATSupport').value = values.QAandUATSupport;
-                document.getElementById('Releasemanagement').value = values.Releasemanagement;
-                document.getElementById('DeploymentSupport').value = values.DeploymentSupport;
-                document.getElementById('WarrantySupport').value = values.WarrantySupport;
-
-                // Update the sum of the fields
-                updateSum();
-            }
+        function samplebudget(){
+             const Analysis = parseFloat(document.getElementById('AnalysisandDesign').innerText) || 0;
+              localStorage.setItem('AnalysisandDesign', Analysis);
+              const Coding = parseFloat(document.getElementById('Coding').innerText) || 0;
+              localStorage.setItem('Coding', Analysis);
+              const UnitTesting = parseFloat(document.getElementById('UnitTesting').innerText) || 0;
+              localStorage.setItem('UnitTesting', UnitTesting);
+              const QAandUATTesting = parseFloat(document.getElementById('QAandUATTesting').innerText) || 0;
+              localStorage.setItem('QAandUATTesting', QAandUATTesting);
+              const Support = parseFloat(document.getElementById('Support').innerText) || 0;
+              localStorage.setItem('Support', Support);
+              console.log("Support :", Support);
         }
+        document.addEventListener('DOMContentLoaded', load);
+
+        document.addEventListener('DOMContentLoaded', timeLine);
+        document.addEventListener('DOMContentLoaded', samplebudget);
+
     </script>
 </body>
 </html>

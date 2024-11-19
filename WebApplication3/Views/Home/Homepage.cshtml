@@ -6,8 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Estimation App</title>
     <link rel="stylesheet" href="~/Content/site.css">
-   
+
     <script type="text/javascript">
+        function navigateTo() {
+
+            const projectName = document.getElementById('projectName').value;
+            localStorage.setItem('projectName', projectName);
+            console.log("projectName :", projectName);
+            const projectType = document.querySelector('input[name="projectType"]:checked');
+            const projectComplexity = document.querySelector('input[name="complexity"]:checked');
+
+            if (projectType && projectComplexity) {
+                localStorage.setItem('projectType', projectType.value);
+                localStorage.setItem('projectComplexity', projectComplexity.value);
+                console.log("project :", projectType.value);
+                console.log("Complexity :", projectComplexity.value);
+
+
+                window.location.href = '/Home/Estpage';
+
+            } else {
+                alert('please selectboth project type and Complexity');
+            }
+
+        }
+    </script>
+   
+  @*   <script type="text/javascript">
         function calculateHours(projectType, complexity) {
             const hoursMatrix = {
                 "Small": { "Low": 100, "Medium": 150, "High": 200 },
@@ -54,7 +79,7 @@
             document.body.appendChild(form);
             form.submit();
         }
-    </script>
+    </script> *@
 </head>
 
 <body>

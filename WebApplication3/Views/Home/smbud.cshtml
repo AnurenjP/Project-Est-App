@@ -114,6 +114,76 @@
             setupRealTimeCalculation();
         });
     </script>
+
+    <script>
+        function combinedData(){
+            const projectName = localStorage.getItem('projectName');
+            const projectType = localStorage.getItem('projectType');
+            const projectComplexity = localStorage.getItem('projectComplexity');
+            const Analysisandrequirementsignoff = localStorage.getItem('Analysisandrequirementsignoff');
+            const FunctionalDesign = parseFloat(localStorage.getItem('FunctionalDesign')) || 0;
+            const TechnicalDesign = parseFloat(localStorage.getItem('TechnicalDesign')) || 0;
+       
+            const AnalysisandDesign1 = parseFloat(localStorage.getItem('AnalysisandDesign1')) || 0;
+            const Frontendchanges = parseFloat(localStorage.getItem('Frontendchanges')) || 0;
+            const IntegrationChanges = parseFloat(localStorage.getItem('IntegrationChanges')) || 0;
+            const BackendChanges = parseFloat(localStorage.getItem('BackendChanges')) || 0;
+            const Coding = parseFloat(localStorage.getItem('Coding')) || 0;
+            const UnitTestCasePreparation = parseFloat(localStorage.getItem('UnitTestCasePreparation')) || 0;
+            const UnittestlogsandDefectFix = parseFloat(localStorage.getItem('UnittestlogsandDefectFix')) || 0;
+            const CodeReview = parseFloat(localStorage.getItem('CodeReview')) || 0;
+            const UnitTestCaseReview = parseFloat(localStorage.getItem('UnitTestCaseReview')) || 0;
+            const UnittestResultReview = parseFloat(localStorage.getItem('UnittestResultReview')) || 0;
+            const UnitTesting = parseFloat(localStorage.getItem('UnitTesting')) || 0;
+            const QAandTestResultReview = parseFloat(localStorage.getItem('QAandTestResultReview')) || 0;
+            const QAandUATSupport = parseFloat(localStorage.getItem('QAandUATSupport')) || 0;
+            const QATestCasePreparation = parseFloat(localStorage.getItem('QATestCasePreparation')) || 0;
+            const QATestingandDefectFix = parseFloat(localStorage.getItem('QATestingandDefectFix')) || 0;
+            const IntegrationTesting = parseFloat(localStorage.getItem('IntegrationTesting')) || 0;
+            const UATTestingandDefectFix = parseFloat(localStorage.getItem('UATTestingandDefectFix')) || 0;
+            const QAandUATTesting = parseFloat(localStorage.getItem('QAandUATTesting')) || 0;
+            const Releasemanagement = parseFloat(localStorage.getItem('Releasemanagement')) || 0;
+            const DeploymentSupport = parseFloat(localStorage.getItem('DeploymentSupport')) || 0;
+            const WarrantySupport = parseFloat(localStorage.getItem('WarrantySupport')) || 0;
+            const Support = parseFloat(localStorage.getItem('Support')) || 0;
+            console.log("Support :", Support);
+
+            const resources = JSON.parse(localStorage.getItem('resources'));
+            const rolevariables={};
+            for (const [role, data] of Object.entries(resources)){
+                rolevariables[role] = data.names;
+
+
+                const nameList = document.createElement('ul');
+                data.names.forEach(name => {
+                    const listitem = document.createElement('li');
+                    listitem.textContent = name;
+                    nameList.appendChild(listitem);
+                });
+                
+            }
+
+            const analysisStartDate = new Date(localStorage.getItem('analysisStartDate'));
+            const analysisEndDate = new Date(localStorage.getItem('analysisEndDate'));
+            const DesignStartDate = new Date(localStorage.getItem('DesignStartDate'));
+            const DesignEndDate = new Date(localStorage.getItem('DesignEndDate'));
+            const DevStart = new Date(localStorage.getItem('DevStart'));
+            const DevEnd = new Date(localStorage.getItem('DevEnd'));
+            const testStart = new Date(localStorage.getItem('testStart'));
+            const testEnd = new Date(localStorage.getItem('testEnd'));
+            const UATStart = new Date(localStorage.getItem('UATStart'));
+            const UATEnd = new Date(localStorage.getItem('UATEnd'));
+            const PRODdates = new Date(localStorage.getItem('PRODdates'));
+            const BCdates = new Date(localStorage.getItem('BCdates'));
+             
+
+        }
+              document.addEventListener('DOMContentLoaded', function () {
+            combinedData();
+           
+        });
+    </script>
+
 </head>
 <body>
     <div class="container">
