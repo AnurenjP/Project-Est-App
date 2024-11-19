@@ -10,6 +10,299 @@
     <title>Sample Timeline</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/site.css">
+
+    <script>
+     function timqperiod() {
+ 
+     const Analysisandrequirementsignoff = localStorage.getItem('Analysisandrequirementsignoff');
+     console.log("Analysisandrequirementsignoff :", Analysisandrequirementsignoff);
+ 
+ 
+     const FunctionalDesign = parseFloat(localStorage.getItem('FunctionalDesign')) || 0;
+     console.log("FunctionalDesign :", FunctionalDesign);
+     const TechnicalDesign = parseFloat(localStorage.getItem('TechnicalDesign')) || 0;
+     console.log("TechnicalDesign :", TechnicalDesign);
+     const Design = FunctionalDesign + TechnicalDesign;
+ 
+     const Frontendchanges = parseFloat(localStorage.getItem('Frontendchanges')) || 0;
+     console.log("Frontendchanges :", Frontendchanges);
+     const IntegrationChanges = parseFloat(localStorage.getItem('IntegrationChanges')) || 0;
+     console.log("IntegrationChanges :", IntegrationChanges);
+     const BackendChanges = parseFloat(localStorage.getItem('BackendChanges')) || 0;
+     const QAandTestResultReview = parseFloat(localStorage.getItem('QAandTestResultReview')) || 0;
+     console.log("QAandTestResultReview :", QAandTestResultReview);
+     const QAandUATSupport = parseFloat(localStorage.getItem('QAandUATSupport')) || 0;
+     console.log("QAandUATSupport :", QAandUATSupport);
+     const Releasemanagement = parseFloat(localStorage.getItem('Releasemanagement')) || 0;
+     console.log("Releasemanagement :", Releasemanagement);
+     const UnitTestCasePreparation = parseFloat(localStorage.getItem('UnitTestCasePreparation')) || 0;
+     const UnittestlogsandDefectFix = parseFloat(localStorage.getItem('UnittestlogsandDefectFix')) || 0;
+     const CodeReview = parseFloat(localStorage.getItem('CodeReview')) || 0;
+     const UnitTestCaseReview = parseFloat(localStorage.getItem('UnitTestCaseReview')) || 0;
+     const UnittestResultReview = parseFloat(localStorage.getItem('UnittestResultReview')) || 0;
+ 
+     const dev = Frontendchanges + IntegrationChanges + QAandTestResultReview + QAandUATSupport + Releasemanagement + BackendChanges + UnitTestCasePreparation + UnittestlogsandDefectFix
+         + CodeReview + UnitTestCaseReview + UnittestResultReview;
+ 
+ 
+     const QATestCasePreparation = parseFloat(localStorage.getItem('QATestCasePreparation')) || 0;
+     const QATestingandDefectFix = parseFloat(localStorage.getItem('QATestingandDefectFix')) || 0;
+     const IntegrationTesting = parseFloat(localStorage.getItem('IntegrationTesting')) || 0;
+ 
+     const Test = QATestCasePreparation + QATestingandDefectFix + IntegrationTesting;
+ 
+     const UATTestingandDefectFix = parseFloat(localStorage.getItem('UATTestingandDefectFix')) || 0;
+ 
+     const DeploymentSupport = parseFloat(localStorage.getItem('DeploymentSupport')) || 0;
+ 
+     const WarrantySupport = parseFloat(localStorage.getItem('WarrantySupport')) || 0;
+ 
+      const resourceCounts = JSON.parse(localStorage.getItem('resourceCounts')) || {
+              devTeamLead: 0,
+             seniorDeveloper: 0,
+             developer: 0
+ 
+         };
+
+ 
+ 
+         const totalResources = (resourceCounts.devTeamLead || 0) + (resourceCounts.seniorDeveloper || 0) + (resourceCounts.developer || 0);
+         localStorage.setItem('totalResources', totalResources);
+ 
+ 
+     const analysisstart = localStorage.getItem('projectStartDate');
+     const analysisend = localStorage.getItem('projectStartDate');
+     const Designstart = localStorage.getItem('projectStartDate');
+     const Designend = localStorage.getItem('projectStartDate');
+ 
+     const projectEndDate = localStorage.getItem('projectEndDate');
+ 
+ 
+     let analysisNoOfDays;
+     // let analysisEndDate;
+     if (Analysisandrequirementsignoff && Design) {
+         // let analysisEndDate = new Date(document.getElementById('analysisEnd'));
+         let analysisEndDate = new Date(analysisstart);
+         let DesignstartDate = new Date(Designstart);
+         let DesignEndDate = new Date(Designstart);
+        if (Analysisandrequirementsignoff <= 8) {
+        analysisNoOfDays = 0;
+        analysisEndDate = new Date(analysisEndDate);
+        analysisStartDate = new Date(analysisEndDate);
+        DesignstartDate = new Date(DesignstartDate);
+        DesignEndDate = new Date(DesignstartDate);
+ 
+    }
+    // else if (Design) {
+    //     analysisNoOfDays = Math.ceil(Design / 8);
+ 
+    //     DesignEndDate.setDate(analysisEndDate.getDate() + analysisNoOfDays - 1);
+ 
+    // }
+    else {
+        analysisStartDate = new Date(analysisEndDate);
+        analysisNoOfDays = Math.floor(Analysisandrequirementsignoff / 8);
+ 
+        analysisEndDate.setDate(analysisEndDate.getDate() + analysisNoOfDays);
+        DesignstartDate = new Date(analysisEndDate);
+        analysisNoOfDaysDesign = Math.floor(Design / 8);
+ 
+        DesignEndDate.setDate(analysisEndDate.getDate() + analysisNoOfDaysDesign);
+ 
+    }
+ 
+ 
+    const formattedAnalysisstartDate = formatedate(analysisStartDate);
+    document.getElementById('AnalysesStart').innerText = `Start: ${formattedAnalysisstartDate}`;
+    localStorage.setItem('analysisStartDate', formattedAnalysisstartDate);
+ 
+    const formattedAnalysisEndDate = formatedate(analysisEndDate);
+    document.getElementById('AnalysesEnd').innerText = `End: ${formattedAnalysisEndDate}`;
+    localStorage.setItem('analysisEndDate', formattedAnalysisEndDate);
+ 
+    // const formattedAnalysisEndDate = `${formatedate(analysisStartDate)} - ${formatedate(analysisEndDate)}`;
+    // document.getElementById('Analyses').innerText = formattedAnalysisEndDate;
+    // localStorage.setItem('analysisEndDate', formattedAnalysisEndDate);
+ 
+    localStorage.setItem('analysisEndDate', analysisEndDate);
+ 
+    const formattedDesignstartDate = formatedate(DesignstartDate);
+    document.getElementById('DesignStart').innerText = `Start: ${formattedDesignstartDate}`;
+    localStorage.setItem('DesignStartDate', formattedDesignstartDate);
+ 
+    const formattedDesignEndDate = formatedate(DesignEndDate);
+    document.getElementById('DesignEnd').innerText = `End: ${formattedDesignEndDate}`;
+    localStorage.setItem('DesignEndDate', formattedDesignEndDate);
+ 
+    // const formattedDesignEndDate = `${formatedate(DesignstartDate)} - ${formatedate(DesignEndDate)}`;
+    // document.getElementById('Design').innerText = formattedDesignEndDate;
+    // localStorage.setItem('DesignEndDate', formattedDesignEndDate);
+ 
+    localStorage.setItem('DesignEndDate', DesignEndDate.toISOString());
+ 
+ 
+}
+ 
+if (dev) {
+    const DesignEndDate = new Date(localStorage.getItem('DesignEndDate'));
+    // DesignEndDate = new Date(DesignEndDate);
+    const devstart = new Date(DesignEndDate);
+    devstart.setDate(devstart.getDate() + 1);
+ 
+    // const resourceCounts = JSON.parse(localStorage.getItem('resourceCounts')) || {
+    //      devTeamLead: 0,
+    //     seniorDeveloper: 0,
+    //     developer: 0
+ 
+    // };
+
+ 
+ 
+    const totalResources = parseFloat(localStorage.getItem('totalResources')) || 0;
+ 
+    analysisNoOfDays = Math.floor(dev / 8);
+    // analysisNoOfDays = analysisNoOfDays - 1;
+    const requiredDays = Math.floor(analysisNoOfDays / totalResources);
+    const devEnd = new Date(devstart);
+    devEnd.setDate(devEnd.getDate() + requiredDays);
+ 
+    localStorage.setItem('devEnd', devEnd.toISOString());
+ 
+    const formatteddevstartDate = formatedate(devstart);
+    document.getElementById('DevStart').innerText = `Start: ${formatteddevstartDate}`;
+    localStorage.setItem('DevStart', formatteddevstartDate);
+ 
+    const formatteddevEndDate = formatedate(devEnd);
+    document.getElementById('DevEnd').innerText = `End: ${formatteddevEndDate}`;
+    localStorage.setItem('DevEnd', formatteddevEndDate);
+ 
+ 
+}
+if (Test) {
+        const devEnd = new Date(localStorage.getItem('devEnd'));
+ 
+        const testStart = new Date(devEnd);
+        testStart.setDate(testStart.getDate() + 1);
+ 
+          const testresourceCounts = JSON.parse(localStorage.getItem('testresourceCounts')) || {
+            qaTeamLead: 0,
+            seniorTester: 0,
+            tester: 0
+ 
+        };
+ 
+        const testResources = (testresourceCounts.qaTeamLead || 0) + (testresourceCounts.seniorTester || 0) + (testresourceCounts.tester || 0);
+ 
+        analysisNoOfDays = Math.floor(Test / 8);
+        // analysisNoOfDays = analysisNoOfDays;
+        const requiredDays = Math.floor(analysisNoOfDays / testResources);
+        const testEnd = new Date(testStart);
+        testEnd.setDate(testEnd.getDate() + requiredDays);
+ 
+        const formattedtestStartDate = formatedate(testStart);
+        document.getElementById('testStart').innerText = `Start: ${formattedtestStartDate}`;
+        localStorage.setItem('testStart', formattedtestStartDate);
+ 
+        const formattedtestendDate = formatedate(testEnd);
+        document.getElementById('testEnd').innerText = `End: ${formattedtestendDate}`;
+        localStorage.setItem('testEnd', formattedtestendDate);
+ 
+        // const formattedteststartDate = `${formatedate(testStart)} - ${formatedate(testEnd)}`;
+        // document.getElementById('test').innerText = formattedteststartDate;
+        // localStorage.setItem('testdates', formattedteststartDate);
+ 
+        localStorage.setItem('testEnd', testEnd);
+    }
+ 
+    if (UATTestingandDefectFix) {
+ 
+        const UATstart = new Date(localStorage.getItem('testEnd'));
+        // const UATstart = new Date(localStorage.getItem('testEnd'));
+ 
+        UATstart.setDate(UATstart.getDate() + 1);
+ 
+        const UATEnd = new Date(projectEndDate);
+        UATEnd.setDate(UATEnd.getDate() - 7);
+ 
+        const formattedUATStartDate = formatedate(UATstart);
+        document.getElementById('UATStart').innerText = `Start: ${formattedUATStartDate}`;
+        localStorage.setItem('UATStart', formattedUATStartDate);
+ 
+        const formattedUATendDate = formatedate(UATEnd);
+        document.getElementById('UATEnd').innerText = `End: ${formattedUATendDate}`;
+        localStorage.setItem('UATEnd', formattedUATendDate);
+ 
+        // const formattedUATstartDate = `${formatedate(UATstart)} - ${formatedate(UATstart)}`;
+        // document.getElementById('UAT').innerText = formattedUATstartDate;
+        // localStorage.setItem('UATdates', formattedUATstartDate);
+    }
+ 
+    if (DeploymentSupport) {
+        const prodDate = new Date(projectEndDate);
+ 
+        const formattedprodstartDate = formatedate(prodDate);
+        document.getElementById('PROD').innerText = formattedprodstartDate;
+        localStorage.setItem('PRODdates', formattedprodstartDate);
+    }
+    if (DeploymentSupport) {
+        const BCDate = new Date(projectEndDate);
+ 
+        BCDate.setDate(BCDate.getDate() + 7);
+ 
+        const formattedBCDate = formatedate(BCDate);
+        document.getElementById('BC').innerText = formattedBCDate;
+        localStorage.setItem('BCdates', formattedBCDate);
+    }
+ 
+ 
+ 
+    // document.addeventlistener('DOMContentLoaded', timqperiod);
+    function loadTime() {
+        const analysisStartDate = localStorage.getItem('analysisStartDate');
+        const analysisEndDate = localStorage.getItem('analysisEndDate');
+        console.log("analysisEndDate :", analysisEndDate);
+        const DesignStartDate = localStorage.getItem('DesignStartDate');
+        const DesignEndDate = localStorage.getItem('DesignEndDate');
+        const DevStart = localStorage.getItem('DevStart');
+        const DevEnd = localStorage.getItem('DevEnd');
+        const testStart = localStorage.getItem('testStart');
+        const testEnd = localStorage.getItem('testEnd');
+        const UATStart = localStorage.getItem('UATStart');
+        const UATEnd = localStorage.getItem('UATEnd');
+        const PRODdates = localStorage.getItem('PRODdates');
+        const BCdates = localStorage.getItem('BCdates');
+ 
+        if (analysisEndDate && DesignEndDate) {
+            // console.log("analysisEndDate :", analysisEndDate);
+            document.getElementById('AnalysesStart').innerText = `Start: ${analysisStartDate}`;
+            document.getElementById('AnalysesEnd').innerText = `End: ${analysisEndDate}`;
+            document.getElementById('DesignStart').innerText = `Start: ${DesignStartDate}`;
+            document.getElementById('DesignEnd').innerText = `End: ${DesignEndDate}`;
+            document.getElementById('DevStart').innerText = `Start: ${DevStart}`;
+            document.getElementById('DevEnd').innerText = `End: ${DevEnd}`;
+            document.getElementById('testStart').innerText = `Start: ${testStart}`;
+            document.getElementById('testEnd').innerText = `End: ${testEnd}`;
+            document.getElementById('UATStart').innerText = `Start:  ${UATStart}`;
+            document.getElementById('UATEnd').innerText = `End: ${UATEnd}`;
+            document.getElementById('PROD').innerText = PRODdates;
+            document.getElementById('BC').innerText = BCdates;
+        }
+ 
+ 
+    }
+ 
+    function formatedate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    }
+}
+ 
+document.addEventListener('DOMContentLoaded', timqperiod);
+
+
+</script>
 </head>
 <body>
     <div class="container">
@@ -29,33 +322,27 @@
             <tbody>
                 <tr>
                     <td style="font-size: 0.8rem;">
-                        <div>Start: 01/01/2023</div>
-                        <div>End: 01/15/2023</div>
+                        <div id="AnalysesStart">Start: </div>
+                        <div id="AnalysesEnd">End: </div>
                     </td>
                     <td style="font-size: 0.8rem;">
-                        <div>Start: 01/16/2023</div>
-                        <div>End: 01/31/2023</div>
+                        <div id="DesignStart">Start: </div>
+                        <div id="DesignEnd">End: </div>
                     </td>
                     <td style="font-size: 0.8rem;">
-                        <div>Start: 02/01/2023</div>
-                        <div>End: 02/15/2023</div>
+                        <div id="DevStart">Start: </div>
+                        <div id="DevEnd">End: </div>
                     </td>
                     <td style="font-size: 0.8rem;">
-                        <div>Start: 02/16/2023</div>
-                        <div>End: 02/28/2023</div>
+                        <div id="testStart">Start: </div>
+                        <div id="testEnd">End: </div>
                     </td>
                     <td style="font-size: 0.8rem;">
-                        <div>Start: 03/01/2023</div>
-                        <div>End: 03/15/2023</div>
+                        <div id="UATStart">Start: </div>
+                        <div id="UATEnd">End: </div>
                     </td>
-                    <td style="font-size: 0.8rem;">
-                        <div>Start: 03/16/2023</div>
-                        <div>End: 03/16/2023</div>
-                    </td>
-                    <td style="font-size: 0.8rem;">
-                        <div>Start: 03/17/2023</div>
-                        <div>End: 03/17/2023</div>
-                    </td>
+                    <td style="font-size: 0.8rem;" id="PROD"></td>
+                    <td style="font-size: 0.8rem;" id="BC"></td>
                 </tr>
             </tbody>
         </table>

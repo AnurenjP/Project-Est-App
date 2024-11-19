@@ -7,7 +7,7 @@
     <title>Project Timeline and Resources</title>
     <link rel="stylesheet" href="~/Content/site.css">
     <script>
-        function saveData() {
+       @* //an function saveData() {
             const resources = {};
             document.querySelectorAll('.grid-item input').forEach(input => {
                 const resourceType = input.name.replace('New', '');
@@ -25,8 +25,60 @@
             localStorage.setItem('projectEndDate', projectEndDate);
 
             window.location.href = '@Url.Content("~/Home/Sampletimeline")'; // Ensure the correct path
-        }
+        }*@
+
         function saveData() {
+     const resources = {};
+      const resourceCounts = JSON.parse(localStorage.getItem('resourceCounts')) || {
+              devTeamLead: 0,
+             seniorDeveloper: 0,
+             developer: 0
+ 
+         };
+ 
+         const testresourceCounts = JSON.parse(localStorage.getItem('testresourceCounts')) || {
+             qaTeamLead: 0,
+             seniorTester: 0,
+             tester: 0
+ 
+         };
+ 
+     
+     document.querySelectorAll('.grid-item input').forEach(input => {
+         const resourceType = input.name.replace('New', '');
+         if (!resources[resourceType]) {
+             resources[resourceType] = { count: 0, names: [] };
+         }
+         resources[resourceType].names.push(input.value);
+         resources[resourceType].count++;
+ 
+         if (['devTeamLead','seniorDeveloper', 'developer'].includes(resourceType)){
+             resourceCounts[resourceType] = resources[resourceType].count;
+         }
+ 
+          if (['qaTeamLead','seniorTester', 'tester'].includes(resourceType)){
+             testresourceCounts[resourceType] =  resources[resourceType].count;
+         }
+     });
+     localStorage.setItem('resources', JSON.stringify(resources));
+ 
+     const projectStartDate = document.getElementById('projectStartDate').value;
+     const projectEndDate = document.getElementById('projectEndDate').value;
+     localStorage.setItem('projectStartDate', projectStartDate);
+     localStorage.setItem('projectEndDate', projectEndDate);
+ 
+     // const resourcedata = countResources();
+ 
+     // const { resourceCounts, testresourceCounts } = resourcedata;
+ 
+     localStorage.setItem('resourceCounts', JSON.stringify(resourceCounts));
+ 
+     localStorage.setItem('testresourceCounts', JSON.stringify(testresourceCounts));
+ 
+     window.location.href = '@Url.Content("~/Home/Sampletimeline")'; // Ensure the correct path
+}
+
+       @* function saveData() {
             const resources = {};
             document.querySelectorAll('.grid-item input').forEach(input => {
                 const resourceType = input.name.replace('New', '');
@@ -44,7 +96,7 @@
             localStorage.setItem('projectEndDate', projectEndDate);
 
             window.location.href = '@Url.Content("~/Home/Sampletimeline")'; // Ensure the correct path
-        }
+        }*@
 
         function addResource() {
             const resourceType = document.getElementById('resourceType').value;
